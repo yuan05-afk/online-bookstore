@@ -65,9 +65,10 @@ body.auth-page *::after {
     margin: 0 auto;
     padding: 0 1.5rem;
     height: 64px;
-    display: flex;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
 }
 
 .auth-logo {
@@ -76,6 +77,7 @@ body.auth-page *::after {
     gap: 0.5rem;
     text-decoration: none;
     color: var(--auth-zinc-900);
+    justify-content: center;
 }
 
 .auth-logo-icon {
@@ -100,6 +102,18 @@ body.auth-page *::after {
     font-size: 1.125rem;
 }
 
+.auth-center-logo {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-brand-logo {
+    height: 75px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+}
+
 .auth-nav {
     display: none;
     align-items: center;
@@ -121,7 +135,7 @@ body.auth-page *::after {
 
 .auth-actions {
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
     gap: 0.75rem;
 }
 
@@ -256,7 +270,7 @@ body.auth-page *::after {
 .auth-input-icon {
     position: absolute;
     left: 0.75rem;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
     color: var(--auth-zinc-400);
     transition: color 0.2s;

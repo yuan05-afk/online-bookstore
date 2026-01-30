@@ -131,13 +131,13 @@ require_once __DIR__ . '/../includes/auth_header.php';
             </div>
 
             <?php if (!empty($errors)): ?>
-            <div class="auth-alert auth-alert-error">
-                <ul>
-                    <?php foreach ($errors as $error): ?>
-                        <li><?php echo escapeHTML($error); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+                <div class="auth-alert auth-alert-error">
+                    <ul>
+                        <?php foreach ($errors as $error): ?>
+                            <li><?php echo escapeHTML($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             <?php endif; ?>
 
             <form method="POST" action="" class="auth-form">
@@ -147,16 +147,22 @@ require_once __DIR__ . '/../includes/auth_header.php';
                     <div class="auth-form-group">
                         <label class="auth-form-label">First Name</label>
                         <div class="auth-input-wrapper">
-                            <iconify-icon icon="solar:user-linear" class="auth-input-icon" stroke-width="1.5" width="18"></iconify-icon>
-                            <input type="text" name="first_name" value="<?php echo escapeHTML($formData['first_name']); ?>" required class="auth-input" placeholder="John">
+                            <iconify-icon icon="solar:user-linear" class="auth-input-icon" stroke-width="1.5"
+                                width="18"></iconify-icon>
+                            <input type="text" name="first_name"
+                                value="<?php echo escapeHTML($formData['first_name']); ?>" required class="auth-input"
+                                placeholder="John">
                         </div>
                     </div>
 
                     <div class="auth-form-group">
                         <label class="auth-form-label">Last Name</label>
                         <div class="auth-input-wrapper">
-                            <iconify-icon icon="solar:user-linear" class="auth-input-icon" stroke-width="1.5" width="18"></iconify-icon>
-                            <input type="text" name="last_name" value="<?php echo escapeHTML($formData['last_name']); ?>" required class="auth-input" placeholder="Doe">
+                            <iconify-icon icon="solar:user-linear" class="auth-input-icon" stroke-width="1.5"
+                                width="18"></iconify-icon>
+                            <input type="text" name="last_name"
+                                value="<?php echo escapeHTML($formData['last_name']); ?>" required class="auth-input"
+                                placeholder="Doe">
                         </div>
                     </div>
                 </div>
@@ -164,16 +170,20 @@ require_once __DIR__ . '/../includes/auth_header.php';
                 <div class="auth-form-group">
                     <label class="auth-form-label">Email address</label>
                     <div class="auth-input-wrapper">
-                        <iconify-icon icon="solar:letter-linear" class="auth-input-icon" stroke-width="1.5" width="18"></iconify-icon>
-                        <input type="email" name="email" value="<?php echo escapeHTML($formData['email']); ?>" required class="auth-input" placeholder="john@example.com">
+                        <iconify-icon icon="solar:letter-linear" class="auth-input-icon" stroke-width="1.5"
+                            width="18"></iconify-icon>
+                        <input type="email" name="email" value="<?php echo escapeHTML($formData['email']); ?>" required
+                            class="auth-input" placeholder="john@example.com">
                     </div>
                 </div>
 
                 <div class="auth-form-group">
                     <label class="auth-form-label">Phone (Optional)</label>
                     <div class="auth-input-wrapper">
-                        <iconify-icon icon="solar:phone-linear" class="auth-input-icon" stroke-width="1.5" width="18"></iconify-icon>
-                        <input type="tel" name="phone" value="<?php echo escapeHTML($formData['phone']); ?>" class="auth-input" placeholder="(555) 123-4567">
+                        <iconify-icon icon="solar:phone-linear" class="auth-input-icon" stroke-width="1.5"
+                            width="18"></iconify-icon>
+                        <input type="tel" name="phone" value="<?php echo escapeHTML($formData['phone']); ?>"
+                            class="auth-input" placeholder="(555) 123-4567">
                     </div>
                 </div>
 
@@ -181,15 +191,19 @@ require_once __DIR__ . '/../includes/auth_header.php';
                     <div class="auth-form-group">
                         <label class="auth-form-label">Password</label>
                         <div class="auth-input-wrapper">
-                            <iconify-icon icon="solar:lock-password-linear" class="auth-input-icon" stroke-width="1.5" width="18"></iconify-icon>
-                            <input type="password" name="password" required class="auth-input" placeholder="Create password">
+                            <iconify-icon icon="solar:lock-password-linear" class="auth-input-icon" stroke-width="1.5"
+                                width="18"></iconify-icon>
+                            <input type="password" name="password" required class="auth-input"
+                                placeholder="Create password">
                         </div>
                     </div>
                     <div class="auth-form-group">
                         <label class="auth-form-label">Confirm Password</label>
                         <div class="auth-input-wrapper">
-                            <iconify-icon icon="solar:lock-password-linear" class="auth-input-icon" stroke-width="1.5" width="18"></iconify-icon>
-                            <input type="password" name="confirm_password" required class="auth-input" placeholder="Confirm password">
+                            <iconify-icon icon="solar:lock-password-linear" class="auth-input-icon" stroke-width="1.5"
+                                width="18"></iconify-icon>
+                            <input type="password" name="confirm_password" required class="auth-input"
+                                placeholder="Confirm password">
                         </div>
                     </div>
                 </div>
@@ -199,13 +213,14 @@ require_once __DIR__ . '/../includes/auth_header.php';
                         Create Account
                     </button>
                     <p class="auth-text-xs auth-text-center auth-mt-3" style="color: var(--auth-zinc-400);">
-                        By registering, you agree to our <a href="#" class="auth-link">Terms</a> and <a href="#" class="auth-link">Privacy Policy</a>.
+                        By registering, you agree to our <a href="terms.php" class="auth-link">Terms</a> and <a
+                            href="privacy.php" class="auth-link">Privacy Policy</a>.
                     </p>
                 </div>
             </form>
         </div>
         <div class="auth-card-footer">
-            Already have an account? 
+            Already have an account?
             <a href="<?php echo SITE_URL; ?>/auth/login.php">Sign in</a>
         </div>
     </div>

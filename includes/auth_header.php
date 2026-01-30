@@ -35,20 +35,16 @@ if (!defined('SITE_NAME')) {
                     <?php echo SITE_NAME; ?>
                 </span>
             </a>
-            <nav class="auth-nav">
-                <a href="<?php echo SITE_URL; ?>/user/catalog.php?category=fiction">Fiction</a>
-                <a href="<?php echo SITE_URL; ?>/user/catalog.php?category=science">Science</a>
-                <a href="<?php echo SITE_URL; ?>/user/catalog.php?category=technology">Technology</a>
-                <a href="<?php echo SITE_URL; ?>/user/catalog.php?category=business">Business</a>
-            </nav>
+            <div class="auth-center-logo">
+                <img src="<?php echo SITE_URL; ?>/assets/images/logo-long.png" alt="Night Owl Books"
+                    class="auth-brand-logo">
+            </div>
             <div class="auth-actions">
                 <?php if (basename($_SERVER['PHP_SELF']) !== 'login.php'): ?>
-                    <a href="<?php echo SITE_URL; ?>/auth/login.php"
-                        class="auth-btn-signin">Sign In</a>
+                    <a href="<?php echo SITE_URL; ?>/auth/login.php" class="auth-btn-signin">Sign In</a>
                 <?php endif; ?>
                 <?php if (basename($_SERVER['PHP_SELF']) !== 'register.php'): ?>
-                    <a href="<?php echo SITE_URL; ?>/auth/register.php"
-                        class="auth-btn-primary">
+                    <a href="<?php echo SITE_URL; ?>/auth/register.php" class="auth-btn-primary">
                         Get Started
                     </a>
                 <?php endif; ?>
