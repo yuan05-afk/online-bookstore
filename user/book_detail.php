@@ -44,102 +44,131 @@ $pageTitle = $book['title'];
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="book-detail-container">
-    <div class="book-detail-main">
-        <div class="book-detail-image">
-            <?php if ($book['cover_image']): ?>
-                <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($book['cover_image']); ?>"
-                    alt="<?php echo escapeHTML($book['title']); ?>">
-            <?php else: ?>
-                <div class="book-placeholder-large">No Image Available</div>
-            <?php endif; ?>
-        </div>
+<a href="catalog.php" class="user-back-link">
+    <iconify-icon icon="solar:alt-arrow-left-linear" width="16"></iconify-icon>
+    Back to Catalog
+</a>
 
-        <div class="book-detail-info">
-            <h1>
-                <?php echo escapeHTML($book['title']); ?>
-            </h1>
-            <p class="book-author-large">by
-                <?php echo escapeHTML($book['author']); ?>
-            </p>
-
-            <div class="book-meta">
-                <p><strong>ISBN:</strong>
-                    <?php echo escapeHTML($book['isbn']); ?>
-                </p>
-                <p><strong>Category:</strong>
-                    <a href="catalog.php?category=<?php echo $book['category_id']; ?>">
-                        <?php echo escapeHTML($book['category_name']); ?>
-                    </a>
-                </p>
-                <p><strong>Price:</strong> <span class="price-large">
-                        <?php echo formatPrice($book['price']); ?>
-                    </span></p>
-                <p><strong>Availability:</strong>
-                    <?php if ($book['stock_quantity'] > 0): ?>
-                        <span class="in-stock">In Stock (
-                            <?php echo $book['stock_quantity']; ?> available)
-                        </span>
-                    <?php else: ?>
-                        <span class="out-of-stock">Out of Stock</span>
-                    <?php endif; ?>
-                </p>
-            </div>
-
-            <div class="book-description">
-                <h2>Description</h2>
-                <p>
-                    <?php echo nl2br(escapeHTML($book['description'])); ?>
-                </p>
-            </div>
-
-            <?php if ($book['stock_quantity'] > 0): ?>
-                <div class="book-actions-detail">
-                    <div class="quantity-selector">
-                        <label for="quantity">Quantity:</label>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1"
-                            max="<?php echo $book['stock_quantity']; ?>">
-                    </div>
-                    <button class="btn btn-primary btn-lg add-to-cart" data-book-id="<?php echo $book['id']; ?>">
-                        Add to Cart
-                    </button>
-                </div>
-            <?php endif; ?>
-        </div>
+<div class="user-detail-grid">
+    <div class="user-detail-image">
+        <?php if ($book['cover_image']): ?>
+            <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($book['cover_image']); ?>"
+                alt="<?php echo escapeHTML($book['title']); ?>">
+        <?php else: ?>
+            <div class="user-book-placeholder">No Image Available</div>
+        <?php endif; ?>
     </div>
 
-    <?php if (!empty($relatedBooks)): ?>
-        <div class="related-books">
-            <h2>Related Books</h2>
-            <div class="books-grid">
-                <?php foreach ($relatedBooks as $relatedBook): ?>
-                    <div class="book-card">
-                        <div class="book-image">
-                            <?php if ($relatedBook['cover_image']): ?>
-                                <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($relatedBook['cover_image']); ?>"
-                                    alt="<?php echo escapeHTML($relatedBook['title']); ?>">
-                            <?php else: ?>
-                                <div class="book-placeholder">No Image</div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="book-info">
-                            <h3 class="book-title">
-                                <a href="book_detail.php?id=<?php echo $relatedBook['id']; ?>">
-                                    <?php echo escapeHTML($relatedBook['title']); ?>
-                                </a>
-                            </h3>
-                            <p class="book-author">
-                                <?php echo escapeHTML($relatedBook['author']); ?>
-                            </p>
-                            <p class="book-price">
-                                <?php echo formatPrice($relatedBook['price']); ?>
-                            </p>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+    <div class="user-detail-info">
+        <div>
+            <h1 class="user-detail-title">
+                <?php echo escapeHTML($book['title']); ?>
+            </h1>
+            <p class="user-detail-author">by <?php echo escapeHTML($book['author']); ?></p>
         </div>
-    <?php endif; ?>
+
+        <div class="user-detail-price">
+            <?php echo formatPrice($book['price']); ?>
+        </div>
+
+        <div class="user-detail-meta">
+            <p><strong>ISBN:</strong> <?php echo escapeHTML($book['isbn']); ?></p>
+            <p>
+                <strong>Category:</strong>
+                <a href="catalog.php?category=<?php echo $book['category_id']; ?>"
+                    style="color: var(--user-zinc-900); text-decoration: underline;">
+                    <?php echo escapeHTML($book['category_name']); ?>
+                </a>
+            </p>
+            <p>
+                <strong>Availability:</strong>
+                <?php if ($book['stock_quantity'] > 10): ?>
+                    <span class="user-stock-badge in-stock">In Stock (<?php echo $book['stock_quantity']; ?>
+                        available)</span>
+                <?php elseif ($book['stock_quantity'] > 0): ?>
+                    <span class="user-stock-badge low-stock">Low Stock (<?php echo $book['stock_quantity']; ?>
+                        available)</span>
+                <?php else: ?>
+                    <span class="user-stock-badge out-of-stock">Out of Stock</span>
+                <?php endif; ?>
+            </p>
+        </div>
+
+        <div>
+            <h2 style="font-size: 0.875rem; font-weight: 600; color: var(--user-zinc-900); margin-bottom: 0.75rem;">
+                Description</h2>
+            <p class="user-detail-description">
+                <?php echo nl2br(escapeHTML($book['description'])); ?>
+            </p>
+        </div>
+
+        <?php if ($book['stock_quantity'] > 0): ?>
+            <div class="user-quantity-selector">
+                <div class="user-quantity-controls">
+                    <button class="user-quantity-btn" onclick="decrementQuantity()">
+                        <iconify-icon icon="solar:minus-linear" width="18"></iconify-icon>
+                    </button>
+                    <span class="user-quantity-value" id="quantity">1</span>
+                    <button class="user-quantity-btn" onclick="incrementQuantity(<?php echo $book['stock_quantity']; ?>)">
+                        <iconify-icon icon="solar:add-linear" width="18"></iconify-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="user-detail-actions">
+                <button class="user-btn user-btn-primary add-to-cart" data-book-id="<?php echo $book['id']; ?>">
+                    <iconify-icon icon="solar:cart-plus-linear" width="20"></iconify-icon>
+                    Add to Cart
+                </button>
+            </div>
+        <?php endif; ?>
+    </div>
 </div>
+
+<?php if (!empty($relatedBooks)): ?>
+    <div class="user-related-section">
+        <h2 class="user-related-title">Related Books</h2>
+        <div class="user-books-grid">
+            <?php foreach ($relatedBooks as $relatedBook): ?>
+                <div class="user-book-card">
+                    <div class="user-book-image-wrapper">
+                        <?php if ($relatedBook['cover_image']): ?>
+                            <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($relatedBook['cover_image']); ?>"
+                                alt="<?php echo escapeHTML($relatedBook['title']); ?>">
+                        <?php else: ?>
+                            <div class="user-book-placeholder">No Image</div>
+                        <?php endif; ?>
+                    </div>
+                    <h3 class="user-book-title">
+                        <a href="book_detail.php?id=<?php echo $relatedBook['id']; ?>">
+                            <?php echo escapeHTML($relatedBook['title']); ?>
+                        </a>
+                    </h3>
+                    <p class="user-book-author">
+                        <?php echo escapeHTML($relatedBook['author']); ?>
+                    </p>
+                    <div class="user-book-footer">
+                        <span class="user-book-price">
+                            <?php echo formatPrice($relatedBook['price']); ?>
+                        </span>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<script>
+    function incrementQuantity(max) {
+        const el = document.getElementById('quantity');
+        const current = parseInt(el.textContent);
+        if (current < max) el.textContent = current + 1;
+    }
+    function decrementQuantity() {
+        const el = document.getElementById('quantity');
+        const current = parseInt(el.textContent);
+        if (current > 1) el.textContent = current - 1;
+    }
+</script>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

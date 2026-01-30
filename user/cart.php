@@ -35,92 +35,93 @@ $pageTitle = 'Shopping Cart';
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="cart-container">
-    <h1>Shopping Cart</h1>
+<h1 class="user-page-title">Shopping Cart</h1>
 
-    <?php if (empty($cartItems)): ?>
-        <div class="empty-cart">
-            <p>Your cart is empty</p>
-            <a href="catalog.php" class="btn btn-primary">Continue Shopping</a>
-        </div>
-    <?php else: ?>
-        <div class="cart-content">
-            <div class="cart-items">
-                <?php foreach ($cartItems as $item): ?>
-                    <div class="cart-item" data-cart-item-id="<?php echo $item['id']; ?>">
-                        <div class="cart-item-image">
-                            <?php if ($item['cover_image']): ?>
-                                <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($item['cover_image']); ?>"
-                                    alt="<?php echo escapeHTML($item['title']); ?>">
-                            <?php else: ?>
-                                <div class="book-placeholder-small">No Image</div>
-                            <?php endif; ?>
-                        </div>
+<?php if (empty($cartItems)): ?>
+    <div class="user-cart-empty">
+        <iconify-icon icon="solar:cart-large-linear" width="64" style="color: var(--user-zinc-300);"></iconify-icon>
+        <p>Your cart is empty</p>
+        <a href="catalog.php" class="user-btn user-btn-primary">Continue Shopping</a>
+    </div>
+<?php else: ?>
+    <div class="user-cart-grid">
+        <div class="user-cart-items">
+            <?php foreach ($cartItems as $item): ?>
+                <div class="user-cart-item" data-cart-item-id="<?php echo $item['id']; ?>">
+                    <div class="user-cart-thumbnail">
+                        <?php if ($item['cover_image']): ?>
+                            <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($item['cover_image']); ?>"
+                                alt="<?php echo escapeHTML($item['title']); ?>">
+                        <?php else: ?>
+                            <div class="user-book-placeholder">No Image</div>
+                        <?php endif; ?>
+                    </div>
 
-                        <div class="cart-item-details">
-                            <h3>
-                                <a href="book_detail.php?id=<?php echo $item['book_id']; ?>">
-                                    <?php echo escapeHTML($item['title']); ?>
-                                </a>
-                            </h3>
-                            <p class="cart-item-author">
-                                <?php echo escapeHTML($item['author']); ?>
-                            </p>
-                            <p class="cart-item-price">
-                                <?php echo formatPrice($item['price']); ?>
-                            </p>
-                        </div>
-
-                        <div class="cart-item-quantity">
-                            <label>Quantity:</label>
-                            <input type="number" class="quantity-input" value="<?php echo $item['quantity']; ?>" min="1"
-                                max="<?php echo $item['stock_quantity']; ?>" data-cart-item-id="<?php echo $item['id']; ?>">
-                        </div>
-
-                        <div class="cart-item-subtotal">
-                            <?php echo formatPrice($item['price'] * $item['quantity']); ?>
-                        </div>
-
-                        <div class="cart-item-remove">
-                            <button class="btn-remove" data-cart-item-id="<?php echo $item['id']; ?>">
-                                Remove
+                    <div class="user-cart-details">
+                        <div class="user-cart-item-header">
+                            <div>
+                                <h3 class="user-cart-item-title">
+                                    <a href="book_detail.php?id=<?php echo $item['book_id']; ?>">
+                                        <?php echo escapeHTML($item['title']); ?>
+                                    </a>
+                                </h3>
+                                <p class="user-cart-item-author">
+                                    <?php echo escapeHTML($item['author']); ?>
+                                </p>
+                            </div>
+                            <button class="user-cart-remove-btn" data-cart-item-id="<?php echo $item['id']; ?>" title="Remove">
+                                <iconify-icon icon="solar:trash-bin-trash-linear" width="20"></iconify-icon>
                             </button>
                         </div>
+
+                        <div class="user-cart-item-footer">
+                            <div class="user-cart-quantity">
+                                <button onclick="updateQuantity(<?php echo $item['id']; ?>, -1)">
+                                    <iconify-icon icon="solar:minus-circle-linear" width="18"></iconify-icon>
+                                </button>
+                                <span><?php echo $item['quantity']; ?></span>
+                                <button onclick="updateQuantity(<?php echo $item['id']; ?>, 1)">
+                                    <iconify-icon icon="solar:add-circle-linear" width="18"></iconify-icon>
+                                </button>
+                            </div>
+                            <span class="user-cart-item-price">
+                                <?php echo formatPrice($item['price'] * $item['quantity']); ?>
+                            </span>
+                        </div>
                     </div>
-                <?php endforeach; ?>
-            </div>
-
-            <div class="cart-summary">
-                <h2>Order Summary</h2>
-
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span>
-                        <?php echo formatPrice($subtotal); ?>
-                    </span>
                 </div>
-
-                <div class="summary-row">
-                    <span>Tax (
-                        <?php echo (TAX_RATE * 100); ?>%):
-                    </span>
-                    <span>
-                        <?php echo formatPrice($tax); ?>
-                    </span>
-                </div>
-
-                <div class="summary-row summary-total">
-                    <span>Total:</span>
-                    <span>
-                        <?php echo formatPrice($total); ?>
-                    </span>
-                </div>
-
-                <a href="checkout.php" class="btn btn-primary btn-block">Proceed to Checkout</a>
-                <a href="catalog.php" class="btn btn-secondary btn-block">Continue Shopping</a>
-            </div>
+            <?php endforeach; ?>
         </div>
-    <?php endif; ?>
-</div>
+
+        <div class="user-cart-summary">
+            <h2 class="user-cart-summary-title">Order Summary</h2>
+
+            <div class="user-summary-rows">
+                <div class="user-summary-row">
+                    <span>Subtotal:</span>
+                    <span><?php echo formatPrice($subtotal); ?></span>
+                </div>
+
+                <div class="user-summary-row">
+                    <span>Tax (<?php echo (TAX_RATE * 100); ?>%):</span>
+                    <span><?php echo formatPrice($tax); ?></span>
+                </div>
+
+                <div class="user-summary-row user-summary-total">
+                    <span>Total:</span>
+                    <span><?php echo formatPrice($total); ?></span>
+                </div>
+            </div>
+
+            <a href="checkout.php" class="user-btn user-btn-primary user-btn-block">
+                <iconify-icon icon="solar:card-linear" width="20"></iconify-icon>
+                Proceed to Checkout
+            </a>
+            <a href="catalog.php" class="user-btn user-btn-secondary user-btn-block">
+                Continue Shopping
+            </a>
+        </div>
+    </div>
+<?php endif; ?>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

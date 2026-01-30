@@ -66,108 +66,122 @@ $pageTitle = 'Book Catalog';
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="catalog-container">
-    <aside class="catalog-sidebar">
-        <h2>Categories</h2>
-        <ul class="category-list">
-            <li>
-                <a href="catalog.php" class="<?php echo !$category_id ? 'active' : ''; ?>">
-                    All Books
-                </a>
-            </li>
-            <?php foreach ($categories as $cat): ?>
+<h1 class="user-page-title">Book Catalog</h1>
+
+<div class="user-catalog-layout">
+    <aside class="user-sidebar">
+        <div class="user-sidebar-section">
+            <h2 class="user-sidebar-title">Categories</h2>
+            <ul class="user-category-list">
                 <li>
-                    <a href="catalog.php?category=<?php echo $cat['id']; ?>"
-                        class="<?php echo $category_id == $cat['id'] ? 'active' : ''; ?>">
-                        <?php echo escapeHTML($cat['name']); ?>
+                    <a href="catalog.php" class="<?php echo !$category_id ? 'active' : ''; ?>">
+                        All Books
                     </a>
                 </li>
-            <?php endforeach; ?>
-        </ul>
+                <?php foreach ($categories as $cat): ?>
+                    <li>
+                        <a href="catalog.php?category=<?php echo $cat['id']; ?>"
+                            class="<?php echo $category_id == $cat['id'] ? 'active' : ''; ?>">
+                            <?php echo escapeHTML($cat['name']); ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
     </aside>
 
-    <main class="catalog-main">
-        <div class="catalog-header">
-            <h1>
-                <?php echo $pageTitle; ?>
-            </h1>
-            <form method="GET" action="" class="search-form">
+    <main class="user-catalog-main">
+        <div class="user-catalog-header">
+            <form method="GET" action="" class="user-search-bar">
                 <?php if ($category_id): ?>
                     <input type="hidden" name="category" value="<?php echo $category_id; ?>">
                 <?php endif; ?>
-                <input type="text" name="search" placeholder="Search by title, author, or ISBN..."
-                    value="<?php echo escapeHTML($search); ?>">
-                <button type="submit" class="btn btn-secondary">Search</button>
+                <iconify-icon icon="solar:magnifer-linear" class="user-search-icon" width="18"
+                    stroke-width="1.5"></iconify-icon>
+                <input type="text" name="search" class="user-search-input"
+                    placeholder="Search by title, author, or ISBN..." value="<?php echo escapeHTML($search); ?>">
             </form>
         </div>
 
         <?php if ($search): ?>
-            <p class="search-results">
-                Found
-                <?php echo $totalBooks; ?> result(s) for "
-                <?php echo escapeHTML($search); ?>"
+            <p style="font-size: 0.875rem; color: var(--user-zinc-500); margin-bottom: 1.5rem;">
+                Found <?php echo $totalBooks; ?> result(s) for "<?php echo escapeHTML($search); ?>"
                 <a href="catalog.php<?php echo $category_id ? '?category=' . $category_id : ''; ?>"
-                    class="clear-search">Clear</a>
+                    style="color: var(--user-zinc-900); text-decoration: underline; margin-left: 0.5rem;">Clear</a>
             </p>
         <?php endif; ?>
 
         <?php if (empty($books)): ?>
-            <div class="no-results">
+            <div class="user-cart-empty">
                 <p>No books found.</p>
+                <a href="catalog.php" class="user-btn user-btn-primary">View All Books</a>
             </div>
         <?php else: ?>
-            <div class="books-grid">
+            <div class="user-books-grid user-fade-in">
                 <?php foreach ($books as $book): ?>
-                    <div class="book-card">
-                        <div class="book-image">
+                    <div class="user-book-card">
+                        <div class="user-book-image-wrapper">
                             <?php if ($book['cover_image']): ?>
                                 <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($book['cover_image']); ?>"
                                     alt="<?php echo escapeHTML($book['title']); ?>">
                             <?php else: ?>
-                                <div class="book-placeholder">No Image</div>
+                                <div class="user-book-placeholder">No Image</div>
                             <?php endif; ?>
-                        </div>
-                        <div class="book-info">
-                            <h3 class="book-title">
-                                <a href="book_detail.php?id=<?php echo $book['id']; ?>">
-                                    <?php echo escapeHTML($book['title']); ?>
+                            <div class="user-book-overlay">
+                                <a href="book_detail.php?id=<?php echo $book['id']; ?>" class="user-overlay-btn"
+                                    title="View Details">
+                                    <iconify-icon icon="solar:eye-linear" width="20" stroke-width="1.5"></iconify-icon>
                                 </a>
-                            </h3>
-                            <p class="book-author">
-                                <?php echo escapeHTML($book['author']); ?>
-                            </p>
-                            <p class="book-price">
-                                <?php echo formatPrice($book['price']); ?>
-                            </p>
-                            <div class="book-actions">
                                 <?php if ($book['stock_quantity'] > 0): ?>
-                                    <button class="btn btn-primary btn-sm add-to-cart" data-book-id="<?php echo $book['id']; ?>">
-                                        Add to Cart
+                                    <button class="user-overlay-btn add-to-cart" data-book-id="<?php echo $book['id']; ?>"
+                                        title="Add to Cart">
+                                        <iconify-icon icon="solar:cart-plus-linear" width="20" stroke-width="1.5"></iconify-icon>
                                     </button>
-                                <?php else: ?>
-                                    <span class="out-of-stock">Out of Stock</span>
                                 <?php endif; ?>
                             </div>
+                        </div>
+                        <h3 class="user-book-title">
+                            <a href="book_detail.php?id=<?php echo $book['id']; ?>">
+                                <?php echo escapeHTML($book['title']); ?>
+                            </a>
+                        </h3>
+                        <p class="user-book-author">
+                            <?php echo escapeHTML($book['author']); ?>
+                        </p>
+                        <div class="user-book-footer">
+                            <span class="user-book-price">
+                                <?php echo formatPrice($book['price']); ?>
+                            </span>
+                            <?php if ($book['stock_quantity'] > 10): ?>
+                                <span class="user-stock-badge in-stock">In Stock</span>
+                            <?php elseif ($book['stock_quantity'] > 0): ?>
+                                <span class="user-stock-badge low-stock">Low Stock</span>
+                            <?php else: ?>
+                                <span class="user-stock-badge out-of-stock">Out of Stock</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
 
             <?php if ($totalPages > 1): ?>
-                <div class="pagination">
+                <div class="user-pagination">
                     <?php if ($page > 1): ?>
                         <a href="?page=<?php echo $page - 1; ?><?php echo $category_id ? '&category=' . $category_id : ''; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>"
-                            class="btn btn-secondary">Previous</a>
+                            class="user-pagination-btn">
+                            <iconify-icon icon="solar:alt-arrow-left-linear" width="16"></iconify-icon>
+                        </a>
                     <?php endif; ?>
 
-                    <span class="page-info">Page
-                        <?php echo $page; ?> of
-                        <?php echo $totalPages; ?>
+                    <span class="user-pagination-info">
+                        Page <?php echo $page; ?> of <?php echo $totalPages; ?>
                     </span>
 
                     <?php if ($page < $totalPages): ?>
                         <a href="?page=<?php echo $page + 1; ?><?php echo $category_id ? '&category=' . $category_id : ''; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>"
-                            class="btn btn-secondary">Next</a>
+                            class="user-pagination-btn">
+                            <iconify-icon icon="solar:alt-arrow-right-linear" width="16"></iconify-icon>
+                        </a>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

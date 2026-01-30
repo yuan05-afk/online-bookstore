@@ -17,6 +17,7 @@ if (isLoggedIn() && !isAdmin()) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,45 +25,42 @@ if (isLoggedIn() && !isAdmin()) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/user.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </head>
-<body>
-    <header class="site-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="<?php echo SITE_URL; ?>/user/catalog.php">
-                        📚 <?php echo SITE_NAME; ?>
-                    </a>
+
+<body class="user-page">
+    <header class="user-header">
+        <div class="user-header-container">
+            <a href="<?php echo SITE_URL; ?>/user/catalog.php" class="user-logo">
+                <div class="user-logo-icon">
+                    <iconify-icon icon="solar:book-2-linear" width="18" stroke-width="1.5"></iconify-icon>
                 </div>
-                
-                <nav class="main-nav">
-                    <a href="<?php echo SITE_URL; ?>/user/catalog.php">Browse Books</a>
-                    <a href="<?php echo SITE_URL; ?>/user/orders.php">My Orders</a>
-                </nav>
-                
-                <div class="header-actions">
-                    <a href="<?php echo SITE_URL; ?>/user/cart.php" class="cart-icon">
-                        🛒 Cart
-                        <?php if ($cartCount > 0): ?>
-                            <span class="cart-badge" id="cart-count"><?php echo $cartCount; ?></span>
-                        <?php endif; ?>
-                    </a>
-                    
-                    <div class="user-menu">
-                        <button class="user-menu-toggle">
-                            👤 <?php echo escapeHTML($_SESSION['first_name'] ?? 'User'); ?>
-                        </button>
-                        <div class="user-menu-dropdown">
-                            <a href="<?php echo SITE_URL; ?>/auth/logout.php">Logout</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="mobile-menu-toggle">☰</button>
+                <span class="user-logo-text"><?php echo SITE_NAME; ?></span>
+            </a>
+
+            <nav class="user-nav">
+                <a href="<?php echo SITE_URL; ?>/user/catalog.php">Browse Books</a>
+                <a href="<?php echo SITE_URL; ?>/user/orders.php">My Orders</a>
+            </nav>
+
+            <div class="user-header-actions">
+                <a href="<?php echo SITE_URL; ?>/user/cart.php" class="user-cart-link">
+                    <iconify-icon icon="solar:cart-large-linear" width="20" stroke-width="1.5"></iconify-icon>
+                    <span>Cart</span>
+                    <?php if ($cartCount > 0): ?>
+                        <span class="user-cart-badge" id="cart-count"><?php echo $cartCount; ?></span>
+                    <?php endif; ?>
+                </a>
+
+                <button class="user-menu-toggle"
+                    onclick="window.location.href='<?php echo SITE_URL; ?>/auth/logout.php'">
+                    <iconify-icon icon="solar:user-circle-linear" width="18" stroke-width="1.5"></iconify-icon>
+                    <span><?php echo escapeHTML($_SESSION['first_name'] ?? 'User'); ?></span>
+                </button>
             </div>
         </div>
     </header>
-    
-    <main class="main-content">
-        <div class="container">
+
+    <main class="user-main">
+        <div class="user-container">
