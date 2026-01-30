@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: bookstore_web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_NAME=online_bookstore
+      - DB_USER=bookstore_user
+      - DB_PASSWORD=bookstore_pass
+    depends_on:
+      - db
+    networks:
+      - bookstore_network
+
+  db:
+    image: mysql:8.0
+    container_name: bookstore_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=online_bookstore
+      - MYSQL_USER=bookstore_user
+      - MYSQL_PASSWORD=bookstore_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    networks:
+      - bookstore_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: bookstore_phpmyadmin
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=bookstore_user
+      - PMA_PASSWORD=bookstore_pass
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - bookstore_network
+
+networks:
+  bookstore_network:
+    driver: bridge
+
+volumes:
+  db_data:

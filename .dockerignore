@@ -1,0 +1,12 @@
+.git
+.gitignore
+.env
+node_modules
+vendor
+*.log
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+*.md
+docker-compose.yml
