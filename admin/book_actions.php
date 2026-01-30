@@ -31,6 +31,7 @@ try {
             $stock_quantity = (int) $_POST['stock_quantity'];
             $description = sanitizeInput($_POST['description'] ?? '');
             $category_id = (int) $_POST['category_id'];
+            $cover_image = !empty($_POST['cover_image']) ? sanitizeInput($_POST['cover_image']) : null;
 
             // Validate ISBN
             if (!validateISBN($isbn)) {
@@ -42,16 +43,6 @@ try {
             $stmt->execute([$isbn]);
             if ($stmt->fetch()) {
                 throw new Exception('ISBN already exists');
-            }
-
-            // Handle image upload
-            $cover_image = null;
-            if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
-                $errors = validateFileUpload($_FILES['cover_image']);
-                if (!empty($errors)) {
-                    throw new Exception(implode(', ', $errors));
-                }
-                $cover_image = uploadFile($_FILES['cover_image'], 'book_');
             }
 
             // Insert book
@@ -81,6 +72,7 @@ try {
             $stock_quantity = (int) $_POST['stock_quantity'];
             $description = sanitizeInput($_POST['description'] ?? '');
             $category_id = (int) $_POST['category_id'];
+            $cover_image = !empty($_POST['cover_image']) ? sanitizeInput($_POST['cover_image']) : null;
 
             // Get current book
             $stmt = $db->prepare("SELECT * FROM books WHERE id = ?");
@@ -89,23 +81,6 @@ try {
 
             if (!$book) {
                 throw new Exception('Book not found');
-            }
-
-            $cover_image = $book['cover_image'];
-
-            // Handle image upload
-            if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
-                $errors = validateFileUpload($_FILES['cover_image']);
-                if (!empty($errors)) {
-                    throw new Exception(implode(', ', $errors));
-                }
-
-                // Delete old image
-                if ($cover_image) {
-                    deleteFile($cover_image);
-                }
-
-                $cover_image = uploadFile($_FILES['cover_image'], 'book_');
             }
 
             // Update book
@@ -134,26 +109,11 @@ try {
                 redirect(SITE_URL . '/admin/books.php');
             }
 
-            // Get book to delete image
-            $stmt = $db->prepare("SELECT cover_image FROM books WHERE id = ?");
+            // Delete book
+            $stmt = $db->prepare("DELETE FROM books WHERE id = ?");
             $stmt->execute([$id]);
-            $book = $stmt->fetch();
 
-            if ($book) {
-                // Delete image
-                if ($book['cover_image']) {
-                    deleteFile($book['cover_image']);
-                }
-
-                // Delete book
-                $stmt = $db->prepare("DELETE FROM books WHERE id = ?");
-                $stmt->execute([$id]);
-
-                setFlashMessage('success', 'Book deleted successfully');
-            } else {
-                setFlashMessage('error', 'Book not found');
-            }
-
+            setFlashMessage('success', 'Book deleted successfully');
             redirect(SITE_URL . '/admin/books.php');
             break;
 

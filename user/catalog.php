@@ -13,6 +13,7 @@ requireUser();
 // Get filter parameters
 $category_id = isset($_GET['category']) ? (int) $_GET['category'] : null;
 $search = isset($_GET['search']) ? sanitizeInput($_GET['search']) : '';
+$sort = isset($_GET['sort']) ? sanitizeInput($_GET['sort']) : 'title_asc';
 $page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
 $offset = ($page - 1) * ITEMS_PER_PAGE;
 
@@ -36,6 +37,27 @@ if ($search) {
 
 $whereClause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 
+// Determine sort order
+$orderBy = 'b.title ASC';
+switch ($sort) {
+    case 'price_low':
+        $orderBy = 'b.price ASC';
+        break;
+    case 'price_high':
+        $orderBy = 'b.price DESC';
+        break;
+    case 'newest':
+        $orderBy = 'b.created_at DESC';
+        break;
+    case 'oldest':
+        $orderBy = 'b.created_at ASC';
+        break;
+    case 'title_asc':
+    default:
+        $orderBy = 'b.title ASC';
+        break;
+}
+
 // Get total count
 $countSql = "SELECT COUNT(*) FROM books b $whereClause";
 $stmt = $db->prepare($countSql);
@@ -49,7 +71,7 @@ $sql = "
     FROM books b
     LEFT JOIN categories c ON b.category_id = c.id
     $whereClause
-    ORDER BY b.title ASC
+    ORDER BY $orderBy
     LIMIT ? OFFSET ?
 ";
 $params[] = ITEMS_PER_PAGE;
@@ -91,16 +113,42 @@ include __DIR__ . '/../includes/header.php';
     </aside>
 
     <main class="user-catalog-main">
-        <div class="user-catalog-header">
-            <form method="GET" action="" class="user-search-bar">
-                <?php if ($category_id): ?>
-                    <input type="hidden" name="category" value="<?php echo $category_id; ?>">
-                <?php endif; ?>
-                <iconify-icon icon="solar:magnifer-linear" class="user-search-icon" width="18"
-                    stroke-width="1.5"></iconify-icon>
-                <input type="text" name="search" class="user-search-input"
-                    placeholder="Search by title, author, or ISBN..." value="<?php echo escapeHTML($search); ?>">
-            </form>
+        <!-- Search Bar -->
+        <form method="GET" action="catalog.php" class="user-search-form">
+            <?php if ($category_id): ?>
+                <input type="hidden" name="category" value="<?php echo $category_id; ?>">
+            <?php endif; ?>
+            <?php if ($sort && $sort !== 'title_asc'): ?>
+                <input type="hidden" name="sort" value="<?php echo escapeHTML($sort); ?>">
+            <?php endif; ?>
+            <div class="user-search-input-wrapper">
+                <iconify-icon icon="solar:magnifer-linear" width="20"></iconify-icon>
+                <input type="text" name="search" placeholder="Search books by title, author, or ISBN..."
+                    value="<?php echo escapeHTML($search); ?>" class="user-search-input">
+            </div>
+            <button type="submit" class="user-btn user-btn-primary">Search</button>
+        </form>
+
+        <!-- Sort Dropdown -->
+        <div class="user-catalog-controls">
+            <div class="user-sort-wrapper">
+                <label for="sort-select">
+                    <iconify-icon icon="solar:sort-linear" width="18"></iconify-icon>
+                    Sort by:
+                </label>
+                <select id="sort-select" class="user-select" onchange="applySorting(this.value)">
+                    <option value="title_asc" <?php echo $sort === 'title_asc' ? 'selected' : ''; ?>>Title (A-Z)</option>
+                    <option value="price_low" <?php echo $sort === 'price_low' ? 'selected' : ''; ?>>Price: Low to High
+                    </option>
+                    <option value="price_high" <?php echo $sort === 'price_high' ? 'selected' : ''; ?>>Price: High to Low
+                    </option>
+                    <option value="newest" <?php echo $sort === 'newest' ? 'selected' : ''; ?>>Newest Arrivals</option>
+                    <option value="oldest" <?php echo $sort === 'oldest' ? 'selected' : ''; ?>>Oldest Arrivals</option>
+                </select>
+            </div>
+            <div class="user-results-count">
+                Showing <?php echo count($books); ?> of <?php echo $totalBooks; ?> books
+            </div>
         </div>
 
         <?php if ($search): ?>
@@ -122,7 +170,7 @@ include __DIR__ . '/../includes/header.php';
                     <div class="user-book-card">
                         <div class="user-book-image-wrapper">
                             <?php if ($book['cover_image']): ?>
-                                <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($book['cover_image']); ?>"
+                                <img src="<?php echo escapeHTML($book['cover_image'] ?: SITE_URL . '/assets/images/placeholder.jpg'); ?>"
                                     alt="<?php echo escapeHTML($book['title']); ?>">
                             <?php else: ?>
                                 <div class="user-book-placeholder">No Image</div>
@@ -188,5 +236,14 @@ include __DIR__ . '/../includes/header.php';
         <?php endif; ?>
     </main>
 </div>
+
+<script>
+    function applySorting(sortValue) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('sort', sortValue);
+        url.searchParams.delete('page'); // Reset to page 1 when sorting changes
+        window.location.href = url.toString();
+    }
+</script>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

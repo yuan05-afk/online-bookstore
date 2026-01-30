@@ -50,7 +50,7 @@ include __DIR__ . '/../includes/header.php';
                 <div class="user-cart-item" data-cart-item-id="<?php echo $item['id']; ?>">
                     <div class="user-cart-thumbnail">
                         <?php if ($item['cover_image']): ?>
-                            <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($item['cover_image']); ?>"
+                            <img src="<?php echo escapeHTML($item['cover_image'] ?: SITE_URL . '/assets/images/placeholder.jpg'); ?>"
                                 alt="<?php echo escapeHTML($item['title']); ?>">
                         <?php else: ?>
                             <div class="user-book-placeholder">No Image</div>

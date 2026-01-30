@@ -42,7 +42,7 @@ include __DIR__ . '/../includes/admin_header.php';
         <a href="books.php" class="btn btn-secondary">Back to Books</a>
     </div>
 
-    <form method="POST" action="book_actions.php" enctype="multipart/form-data" class="admin-form">
+    <form method="POST" action="book_actions.php" class="admin-form">
         <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
         <input type="hidden" name="action" value="<?php echo $isEdit ? 'update' : 'create'; ?>">
         <?php if ($isEdit): ?>
@@ -102,18 +102,18 @@ include __DIR__ . '/../includes/admin_header.php';
         </div>
 
         <div class="form-group">
-            <label for="cover_image">Cover Image</label>
+            <label for="cover_image">Cover Image URL</label>
             <?php if ($book && $book['cover_image']): ?>
                 <div class="current-image">
-                    <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($book['cover_image']); ?>"
-                        alt="Current cover" style="max-width: 200px;">
-                    <p>Current image:
-                        <?php echo escapeHTML($book['cover_image']); ?>
-                    </p>
+                    <img src="<?php echo escapeHTML($book['cover_image']); ?>" alt="Current cover"
+                        style="max-width: 200px; border-radius: 0.5rem; border: 1px solid #ddd;">
+                    <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #666;">Current image URL</p>
                 </div>
             <?php endif; ?>
-            <input type="file" id="cover_image" name="cover_image" accept="image/*">
-            <small>Allowed formats: JPG, PNG, GIF, WebP (Max 5MB)</small>
+            <input type="url" id="cover_image" name="cover_image"
+                value="<?php echo $book ? escapeHTML($book['cover_image']) : ''; ?>"
+                placeholder="https://example.com/book-cover.jpg">
+            <small>Enter the direct URL to the book cover image (right-click image → Copy Image Address)</small>
         </div>
 
         <div class="form-actions">

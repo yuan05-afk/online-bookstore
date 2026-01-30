@@ -52,7 +52,7 @@ include __DIR__ . '/../includes/header.php';
 <div class="user-detail-grid">
     <div class="user-detail-image">
         <?php if ($book['cover_image']): ?>
-            <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($book['cover_image']); ?>"
+            <img src="<?php echo escapeHTML($book['cover_image'] ?: SITE_URL . '/assets/images/placeholder.jpg'); ?>"
                 alt="<?php echo escapeHTML($book['title']); ?>">
         <?php else: ?>
             <div class="user-book-placeholder">No Image Available</div>
@@ -133,7 +133,7 @@ include __DIR__ . '/../includes/header.php';
                 <div class="user-book-card">
                     <div class="user-book-image-wrapper">
                         <?php if ($relatedBook['cover_image']): ?>
-                            <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($relatedBook['cover_image']); ?>"
+                            <img src="<?php echo escapeHTML($relatedBook['cover_image'] ?: SITE_URL . '/assets/images/placeholder.jpg'); ?>"
                                 alt="<?php echo escapeHTML($relatedBook['title']); ?>">
                         <?php else: ?>
                             <div class="user-book-placeholder">No Image</div>
