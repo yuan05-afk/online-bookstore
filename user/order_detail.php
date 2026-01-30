@@ -37,119 +37,96 @@ $pageTitle = 'Order Details';
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="order-detail-container">
-    <h1>Order Details</h1>
+<a href="orders.php" class="user-back-link">
+    <iconify-icon icon="solar:alt-arrow-left-linear" width="16"></iconify-icon>
+    Back to Orders
+</a>
 
-    <div class="order-detail-header">
-        <div class="order-info-grid">
-            <div class="info-card">
-                <h3>Order Information</h3>
-                <p><strong>Order Number:</strong>
-                    <?php echo escapeHTML($order['order_number']); ?>
-                </p>
-                <p><strong>Order Date:</strong>
-                    <?php echo date('F j, Y g:i A', strtotime($order['created_at'])); ?>
-                </p>
-                <p><strong>Status:</strong> <span class="status status-<?php echo strtolower($order['status']); ?>">
-                        <?php echo escapeHTML($order['status']); ?>
-                    </span></p>
-                <p><strong>Transaction ID:</strong>
-                    <?php echo escapeHTML($order['transaction_id']); ?>
-                </p>
-            </div>
+<div class="user-detail-header">
+    <h1>Order #<?php echo escapeHTML($order['order_number']); ?></h1>
+    <span class="user-order-status <?php echo strtolower($order['status']); ?>">
+        <?php echo escapeHTML($order['status']); ?>
+    </span>
+</div>
 
-            <div class="info-card">
-                <h3>Shipping Address</h3>
-                <p>
-                    <?php echo nl2br(escapeHTML($order['shipping_address'])); ?>
-                </p>
-            </div>
-
-            <div class="info-card">
-                <h3>Payment Information</h3>
-                <p><strong>Method:</strong>
-                    <?php echo escapeHTML($order['payment_method']); ?>
-                </p>
-                <p><strong>Subtotal:</strong>
-                    <?php echo formatPrice($order['total_amount']); ?>
-                </p>
-                <p><strong>Tax:</strong>
-                    <?php echo formatPrice($order['tax_amount']); ?>
-                </p>
-                <p><strong>Total:</strong>
-                    <?php echo formatPrice($order['grand_total']); ?>
-                </p>
-            </div>
+<!-- Order Progress -->
+<div class="user-order-progress">
+    <div
+        class="user-progress-step <?php echo in_array($order['status'], ['Processing', 'Shipped', 'Delivered']) ? 'completed' : 'active'; ?>">
+        <div class="user-progress-icon">
+            <iconify-icon icon="solar:box-linear" width="20"></iconify-icon>
         </div>
+        <span>Processing</span>
+    </div>
+    <div
+        class="user-progress-line <?php echo in_array($order['status'], ['Shipped', 'Delivered']) ? 'completed' : ''; ?>">
+    </div>
+    <div
+        class="user-progress-step <?php echo in_array($order['status'], ['Shipped', 'Delivered']) ? 'completed' : ($order['status'] === 'Processing' ? 'active' : ''); ?>">
+        <div class="user-progress-icon">
+            <iconify-icon icon="solar:delivery-linear" width="20"></iconify-icon>
+        </div>
+        <span>Shipped</span>
+    </div>
+    <div class="user-progress-line <?php echo $order['status'] === 'Delivered' ? 'completed' : ''; ?>"></div>
+    <div class="user-progress-step <?php echo $order['status'] === 'Delivered' ? 'completed' : ''; ?>">
+        <div class="user-progress-icon">
+            <iconify-icon icon="solar:check-circle-linear" width="20"></iconify-icon>
+        </div>
+        <span>Delivered</span>
+    </div>
+</div>
+
+<!-- Order Items -->
+<section class="user-order-items-section">
+    <h2>Order Items</h2>
+    <div class="user-order-items-list">
+        <?php foreach ($orderItems as $item): ?>
+            <div class="user-order-item">
+                <div class="user-order-item-image">
+                    <?php if ($item['cover_image']): ?>
+                        <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($item['cover_image']); ?>"
+                            alt="<?php echo escapeHTML($item['title']); ?>">
+                    <?php else: ?>
+                        <div class="user-book-placeholder">No Image</div>
+                    <?php endif; ?>
+                </div>
+                <div class="user-order-item-details">
+                    <h4><?php echo escapeHTML($item['title']); ?></h4>
+                    <p><?php echo escapeHTML($item['author']); ?></p>
+                    <p style="font-size: 0.875rem; color: var(--user-zinc-500);">Quantity: <?php echo $item['quantity']; ?>
+                    </p>
+                </div>
+                <div class="user-order-item-price">
+                    <?php echo formatPrice($item['price_at_purchase'] * $item['quantity']); ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<!-- Order Information Grid -->
+<div class="user-order-info-grid">
+    <div class="user-info-card">
+        <h3>Order Information</h3>
+        <p><strong>Order Number:</strong> <?php echo escapeHTML($order['order_number']); ?></p>
+        <p><strong>Order Date:</strong> <?php echo date('F j, Y g:i A', strtotime($order['created_at'])); ?></p>
+        <p><strong>Transaction ID:</strong> <?php echo escapeHTML($order['transaction_id']); ?></p>
     </div>
 
-    <div class="order-items-section">
-        <h2>Order Items</h2>
-        <div class="order-items-list">
-            <?php foreach ($orderItems as $item): ?>
-                <div class="order-item">
-                    <div class="item-image">
-                        <?php if ($item['cover_image']): ?>
-                            <img src="<?php echo SITE_URL; ?>/assets/images/books/<?php echo escapeHTML($item['cover_image']); ?>"
-                                alt="<?php echo escapeHTML($item['title']); ?>">
-                        <?php else: ?>
-                            <div class="book-placeholder-small">No Image</div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="item-details">
-                        <h4>
-                            <?php echo escapeHTML($item['title']); ?>
-                        </h4>
-                        <p class="item-author">
-                            <?php echo escapeHTML($item['author']); ?>
-                        </p>
-                        <p class="item-quantity">Quantity:
-                            <?php echo $item['quantity']; ?>
-                        </p>
-                    </div>
-
-                    <div class="item-price">
-                        <?php echo formatPrice($item['price_at_purchase'] * $item['quantity']); ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+    <div class="user-info-card">
+        <h3>Shipping Address</h3>
+        <p><?php echo nl2br(escapeHTML($order['shipping_address'])); ?></p>
     </div>
 
-    <div class="order-tracking">
-        <h2>Order Status Timeline</h2>
-        <div class="timeline">
-            <div
-                class="timeline-item <?php echo in_array($order['status'], ['Processing', 'Shipped', 'Delivered']) ? 'completed' : ''; ?>">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <h4>Processing</h4>
-                    <p>Your order is being prepared</p>
-                </div>
-            </div>
-
-            <div
-                class="timeline-item <?php echo in_array($order['status'], ['Shipped', 'Delivered']) ? 'completed' : ''; ?>">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <h4>Shipped</h4>
-                    <p>Your order has been shipped</p>
-                </div>
-            </div>
-
-            <div class="timeline-item <?php echo $order['status'] === 'Delivered' ? 'completed' : ''; ?>">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <h4>Delivered</h4>
-                    <p>Your order has been delivered</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="order-actions">
-        <a href="orders.php" class="btn btn-secondary">Back to Orders</a>
+    <div class="user-info-card">
+        <h3>Payment Summary</h3>
+        <p><strong>Payment Method:</strong> <?php echo escapeHTML($order['payment_method']); ?></p>
+        <p><strong>Subtotal:</strong> <?php echo formatPrice($order['total_amount']); ?></p>
+        <p><strong>Tax:</strong> <?php echo formatPrice($order['tax_amount']); ?></p>
+        <p><strong>Total:</strong> <span
+                style="font-size: 1.125rem; font-weight: 600; color: var(--user-zinc-900);"><?php echo formatPrice($order['grand_total']); ?></span>
+        </p>
     </div>
 </div>
 

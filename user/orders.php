@@ -25,63 +25,42 @@ $pageTitle = 'Order History';
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="orders-container">
-    <h1>Order History</h1>
+<h1 class="user-page-title">Order History</h1>
 
-    <?php if (empty($orders)): ?>
-        <div class="no-orders">
-            <p>You haven't placed any orders yet.</p>
-            <a href="catalog.php" class="btn btn-primary">Start Shopping</a>
-        </div>
-    <?php else: ?>
-        <div class="orders-list">
-            <?php foreach ($orders as $order): ?>
-                <div class="order-card">
-                    <div class="order-header">
-                        <div class="order-number">
-                            <strong>Order #
-                                <?php echo escapeHTML($order['order_number']); ?>
-                            </strong>
-                        </div>
-                        <div class="order-date">
-                            <?php echo date('F j, Y', strtotime($order['created_at'])); ?>
-                        </div>
+<?php if (empty($orders)): ?>
+    <div class="user-orders-empty">
+        <iconify-icon icon="solar:box-linear" width="64" style="color: var(--user-zinc-300);"></iconify-icon>
+        <p>You haven't placed any orders yet.</p>
+        <a href="catalog.php" class="user-btn user-btn-primary">Start Shopping</a>
+    </div>
+<?php else: ?>
+    <div class="user-orders-list">
+        <?php foreach ($orders as $order): ?>
+            <div class="user-order-card" onclick="window.location.href='order_detail.php?id=<?php echo $order['id']; ?>'">
+                <div class="user-order-header">
+                    <div class="user-order-icon">
+                        <iconify-icon icon="solar:box-linear" width="24"></iconify-icon>
                     </div>
-
-                    <div class="order-body">
-                        <div class="order-info">
-                            <div class="info-item">
-                                <span class="label">Status:</span>
-                                <span class="status status-<?php echo strtolower($order['status']); ?>">
-                                    <?php echo escapeHTML($order['status']); ?>
-                                </span>
-                            </div>
-
-                            <div class="info-item">
-                                <span class="label">Total:</span>
-                                <span class="value">
-                                    <?php echo formatPrice($order['grand_total']); ?>
-                                </span>
-                            </div>
-
-                            <div class="info-item">
-                                <span class="label">Payment:</span>
-                                <span class="value">
-                                    <?php echo escapeHTML($order['payment_method']); ?>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="order-actions">
-                            <a href="order_detail.php?id=<?php echo $order['id']; ?>" class="btn btn-secondary btn-sm">
-                                View Details
-                            </a>
-                        </div>
+                    <div class="user-order-info">
+                        <h3>Order #<?php echo escapeHTML($order['order_number']); ?></h3>
+                        <p><?php echo date('F j, Y', strtotime($order['created_at'])); ?></p>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-</div>
+
+                <div class="user-order-body">
+                    <div class="user-order-meta">
+                        <span class="user-order-status <?php echo strtolower($order['status']); ?>">
+                            <?php echo escapeHTML($order['status']); ?>
+                        </span>
+                        <span class="user-order-total">
+                            <?php echo formatPrice($order['grand_total']); ?>
+                        </span>
+                    </div>
+                    <iconify-icon icon="solar:alt-arrow-right-linear" class="user-order-arrow" width="20"></iconify-icon>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

@@ -52,6 +52,7 @@ include __DIR__ . '/../includes/header.php';
 
     <div class="user-checkout-grid">
         <div>
+            <!-- Shipping Information -->
             <section class="user-checkout-section">
                 <h2>Shipping Information</h2>
 
@@ -75,57 +76,60 @@ include __DIR__ . '/../includes/header.php';
                         value="<?php echo escapeHTML($user['address'] ?? ''); ?>" required>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
+                <div class="user-form-row">
+                    <div class="user-form-group">
                         <label for="city">City *</label>
-                        <input type="text" id="city" name="city" value="<?php echo escapeHTML($user['city'] ?? ''); ?>"
-                            required>
+                        <input type="text" id="city" name="city" class="user-input"
+                            value="<?php echo escapeHTML($user['city'] ?? ''); ?>" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="user-form-group">
                         <label for="state">State *</label>
-                        <input type="text" id="state" name="state"
+                        <input type="text" id="state" name="state" class="user-input"
                             value="<?php echo escapeHTML($user['state'] ?? ''); ?>" required>
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
+                <div class="user-form-row">
+                    <div class="user-form-group">
                         <label for="zip_code">ZIP Code *</label>
-                        <input type="text" id="zip_code" name="zip_code"
+                        <input type="text" id="zip_code" name="zip_code" class="user-input"
                             value="<?php echo escapeHTML($user['zip_code'] ?? ''); ?>" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="user-form-group">
                         <label for="country">Country *</label>
-                        <input type="text" id="country" name="country"
+                        <input type="text" id="country" name="country" class="user-input"
                             value="<?php echo escapeHTML($user['country'] ?? 'USA'); ?>" required>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="user-form-group">
                     <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" name="phone" value="<?php echo escapeHTML($user['phone'] ?? ''); ?>"
-                        required>
+                    <input type="tel" id="phone" name="phone" class="user-input"
+                        value="<?php echo escapeHTML($user['phone'] ?? ''); ?>" required>
                 </div>
             </section>
 
             <!-- Payment Information -->
-            <section class="checkout-section">
+            <section class="user-checkout-section">
                 <h2>Payment Information</h2>
-                <p class="payment-note">This is a mock payment system. No actual charges will be made.</p>
+                <p class="user-payment-note">
+                    <iconify-icon icon="solar:info-circle-linear" width="16"></iconify-icon>
+                    This is a mock payment system. No actual charges will be made.
+                </p>
 
-                <div class="form-group">
+                <div class="user-form-group">
                     <label for="card_number">Card Number *</label>
-                    <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456"
-                        maxlength="19" required>
+                    <input type="text" id="card_number" name="card_number" class="user-input" 
+                        placeholder="1234 5678 9012 3456" maxlength="19" required>
                     <small>Test card: 4532015112830366 (Visa)</small>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
+                <div class="user-form-row">
+                    <div class="user-form-group">
                         <label for="expiry_month">Expiry Month *</label>
-                        <select id="expiry_month" name="expiry_month" required>
+                        <select id="expiry_month" name="expiry_month" class="user-select" required>
                             <option value="">Month</option>
                             <?php for ($i = 1; $i <= 12; $i++): ?>
                                 <option value="<?php echo sprintf('%02d', $i); ?>">
@@ -135,9 +139,9 @@ include __DIR__ . '/../includes/header.php';
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="user-form-group">
                         <label for="expiry_year">Expiry Year *</label>
-                        <select id="expiry_year" name="expiry_year" required>
+                        <select id="expiry_year" name="expiry_year" class="user-select" required>
                             <option value="">Year</option>
                             <?php for ($i = 0; $i < 10; $i++): ?>
                                 <?php $year = date('Y') + $i; ?>
@@ -148,65 +152,51 @@ include __DIR__ . '/../includes/header.php';
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="user-form-group">
                         <label for="cvv">CVV *</label>
-                        <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+                        <input type="text" id="cvv" name="cvv" class="user-input" 
+                            placeholder="123" maxlength="4" required>
                     </div>
                 </div>
             </section>
         </div>
 
         <!-- Order Summary Sidebar -->
-        <aside class="checkout-sidebar">
-            <div class="order-summary">
-                <h2>Order Summary</h2>
+        <aside class="user-cart-summary">
+            <h2 class="user-cart-summary-title">Order Summary</h2>
 
-                <div class="summary-items">
-                    <?php foreach ($cartItems as $item): ?>
-                        <div class="summary-item">
-                            <span>
-                                <?php echo escapeHTML($item['title']); ?> ×
-                                <?php echo $item['quantity']; ?>
-                            </span>
-                            <span>
-                                <?php echo formatPrice($item['price'] * $item['quantity']); ?>
-                            </span>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <div class="summary-totals">
-                    <div class="summary-row">
-                        <span>Subtotal:</span>
-                        <span>
-                            <?php echo formatPrice($subtotal); ?>
-                        </span>
+            <div class="user-summary-rows">
+                <?php foreach ($cartItems as $item): ?>
+                    <div class="user-summary-row" style="font-size: 0.8125rem; padding: 0.5rem 0; border-bottom: 1px solid var(--user-zinc-100);">
+                        <span><?php echo escapeHTML($item['title']); ?> × <?php echo $item['quantity']; ?></span>
+                        <span><?php echo formatPrice($item['price'] * $item['quantity']); ?></span>
                     </div>
-
-                    <div class="summary-row">
-                        <span>Tax (
-                            <?php echo (TAX_RATE * 100); ?>%):
-                        </span>
-                        <span>
-                            <?php echo formatPrice($tax); ?>
-                        </span>
-                    </div>
-
-                    <div class="summary-row summary-total">
-                        <span>Total:</span>
-                        <span>
-                            <?php echo formatPrice($total); ?>
-                        </span>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block btn-lg">
-                    Place Order
-                </button>
+                <?php endforeach; ?>
             </div>
+
+            <div class="user-summary-rows" style="margin-top: 1rem;">
+                <div class="user-summary-row">
+                    <span>Subtotal:</span>
+                    <span><?php echo formatPrice($subtotal); ?></span>
+                </div>
+
+                <div class="user-summary-row">
+                    <span>Tax (<?php echo (TAX_RATE * 100); ?>%):</span>
+                    <span><?php echo formatPrice($tax); ?></span>
+                </div>
+
+                <div class="user-summary-row user-summary-total">
+                    <span>Total:</span>
+                    <span><?php echo formatPrice($total); ?></span>
+                </div>
+            </div>
+
+            <button type="submit" class="user-btn user-btn-primary user-btn-block user-btn-lg" style="margin-top: 1.5rem;">
+                <iconify-icon icon="solar:card-linear" width="20"></iconify-icon>
+                Place Order
+            </button>
         </aside>
     </div>
 </form>
-</div>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
