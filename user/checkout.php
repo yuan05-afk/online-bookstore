@@ -47,7 +47,7 @@ include __DIR__ . '/../includes/header.php';
 
 <h1 class="user-page-title">Checkout</h1>
 
-<form method="POST" action="process_order.php">
+<form method="POST" action="process_order.php" onsubmit="return confirm('Are you sure you want to place this order?');">
     <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
 
     <div class="user-checkout-grid">
@@ -121,7 +121,7 @@ include __DIR__ . '/../includes/header.php';
 
                 <div class="user-form-group">
                     <label for="card_number">Card Number *</label>
-                    <input type="text" id="card_number" name="card_number" class="user-input" 
+                    <input type="text" id="card_number" name="card_number" class="user-input"
                         placeholder="1234 5678 9012 3456" maxlength="19" required>
                     <small>Test card: 4532015112830366 (Visa)</small>
                 </div>
@@ -154,8 +154,8 @@ include __DIR__ . '/../includes/header.php';
 
                     <div class="user-form-group">
                         <label for="cvv">CVV *</label>
-                        <input type="text" id="cvv" name="cvv" class="user-input" 
-                            placeholder="123" maxlength="4" required>
+                        <input type="text" id="cvv" name="cvv" class="user-input" placeholder="123" maxlength="4"
+                            required>
                     </div>
                 </div>
             </section>
@@ -167,7 +167,8 @@ include __DIR__ . '/../includes/header.php';
 
             <div class="user-summary-rows">
                 <?php foreach ($cartItems as $item): ?>
-                    <div class="user-summary-row" style="font-size: 0.8125rem; padding: 0.5rem 0; border-bottom: 1px solid var(--user-zinc-100);">
+                    <div class="user-summary-row"
+                        style="font-size: 0.8125rem; padding: 0.5rem 0; border-bottom: 1px solid var(--user-zinc-100);">
                         <span><?php echo escapeHTML($item['title']); ?> × <?php echo $item['quantity']; ?></span>
                         <span><?php echo formatPrice($item['price'] * $item['quantity']); ?></span>
                     </div>
@@ -191,7 +192,8 @@ include __DIR__ . '/../includes/header.php';
                 </div>
             </div>
 
-            <button type="submit" class="user-btn user-btn-primary user-btn-block user-btn-lg" style="margin-top: 1.5rem;">
+            <button type="submit" class="user-btn user-btn-primary user-btn-block user-btn-lg"
+                style="margin-top: 1.5rem;">
                 <iconify-icon icon="solar:card-linear" width="20"></iconify-icon>
                 Place Order
             </button>

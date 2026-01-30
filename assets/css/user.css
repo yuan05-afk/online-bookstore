@@ -164,18 +164,27 @@ body.user-page *::after {
     color: var(--user-zinc-900);
 }
 
+.user-cart-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .user-cart-badge {
     position: absolute;
-    top: 0.25rem;
-    right: 0.25rem;
+    top: -5px;
+    right: -5px;
     background: var(--user-zinc-900);
     color: white;
-    font-size: 0.625rem;
+    font-size: 0.6rem;
     font-weight: 600;
-    padding: 0.125rem 0.375rem;
+    padding: 0 0.25rem;
     border-radius: 9999px;
-    min-width: 1.25rem;
-    text-align: center;
+    min-width: 1rem;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .user-menu-toggle {
@@ -1502,7 +1511,7 @@ body.user-page *::after {
     padding-top: 1.5rem;
     border-top: 1px solid var(--user-zinc-100);
     display: flex;
-    justify-end;
+    justify-content: flex-end;
 }
 
 .user-order-summary-box {
@@ -1558,6 +1567,36 @@ body.user-page *::after {
 .user-confirmation-message strong {
     color: var(--user-zinc-900);
     font-weight: 500;
+}
+
+.user-confirmation-details {
+    background: var(--user-zinc-50);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.user-confirmation-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--user-zinc-600);
+}
+
+.user-confirmation-row:last-child {
+    margin-bottom: 0;
+}
+
+.user-confirmation-note {
+    font-size: 0.875rem;
+    color: var(--user-zinc-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 .user-confirmation-actions {

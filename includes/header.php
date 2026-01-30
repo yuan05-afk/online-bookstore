@@ -46,11 +46,13 @@ if (isLoggedIn() && !isAdmin()) {
 
             <div class="user-header-actions">
                 <a href="<?php echo SITE_URL; ?>/user/cart.php" class="user-cart-link">
-                    <iconify-icon icon="solar:cart-large-linear" width="20" stroke-width="1.5"></iconify-icon>
-                    <span>Cart</span>
-                    <?php if ($cartCount > 0): ?>
-                        <span class="user-cart-badge" id="cart-count"><?php echo $cartCount; ?></span>
-                    <?php endif; ?>
+                    <div class="user-cart-icon-wrapper">
+                        <iconify-icon icon="solar:cart-large-linear" width="20" stroke-width="1.5"></iconify-icon>
+                        <?php if ($cartCount > 0): ?>
+                            <span class="user-cart-badge" id="cart-count"><?php echo $cartCount; ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <span class="user-cart-label">Cart</span>
                 </a>
 
                 <div class="user-menu">
@@ -76,3 +78,20 @@ if (isLoggedIn() && !isAdmin()) {
 
     <main class="user-main">
         <div class="user-container">
+            <?php
+            $flash = getFlashMessage();
+            if ($flash):
+                ?>
+                <div class="notification notification-<?php echo $flash['type']; ?> show">
+                    <?php echo escapeHTML($flash['message']); ?>
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const notification = document.querySelector('.notification');
+                        if (notification) {
+                            notification.classList.remove('show');
+                            setTimeout(() => notification.remove(), 300);
+                        }
+                    }, 5000);
+                </script>
+            <?php endif; ?>
