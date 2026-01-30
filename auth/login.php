@@ -139,18 +139,7 @@ $flashMessage = getFlashMessage();
                     </div>
                 </div>
 
-                <div class="auth-flex-between">
-                    <label class="auth-checkbox-wrapper">
-                        <input type="checkbox" name="remember">
-                        <div class="auth-checkbox">
-                            <svg style="display: none; width: 10px; height: 10px; color: white; pointer-events: none;"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M5 13l4 4L19 7"></path>
-                            </svg>
-                        </div>
-                        <span class="auth-checkbox-label">Remember me</span>
-                    </label>
+                <div style="text-align: right; padding-top: 0.25rem;">
                     <a href="#" class="auth-forgot-link">Forgot password?</a>
                 </div>
 

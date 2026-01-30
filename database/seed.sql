@@ -17,12 +17,12 @@ INSERT INTO categories (name, slug, description) VALUES
 -- Insert admin user (password: admin123)
 -- Password hash generated with: password_hash('admin123', PASSWORD_BCRYPT, ['cost' => 12])
 INSERT INTO users (email, password_hash, first_name, last_name, role, phone, address, city, state, zip_code) VALUES
-('admin@bookstore.com', '$2y$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYqR4RSxide', 'Admin', 'User', 'admin', '555-0100', '123 Admin St', 'New York', 'NY', '10001');
+('admin@bookstore.com', '$2y$12$aBhTIGuTM65R4MIMvciIPONqMItOPMVdI0nohLmIWHie4zo3H3SeOS', 'Admin', 'User', 'admin', '555-0100', '123 Admin St', 'New York', 'NY', '10001');
 
 -- Insert test user (password: user123)
 -- Password hash generated with: password_hash('user123', PASSWORD_BCRYPT, ['cost' => 12])
 INSERT INTO users (email, password_hash, first_name, last_name, role, phone, address, city, state, zip_code) VALUES
-('user@bookstore.com', '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Test', 'User', 'user', '555-0200', '456 User Ave', 'Los Angeles', 'CA', '90001');
+('user@bookstore.com', '$2y$12$VZL5zI6Pq5REgT1.Y71Zu.NqMItOPMVdI0nohLmIWHie4zo3H3SeOS', 'Test', 'User', 'user', '555-0200', '456 User Ave', 'Los Angeles', 'CA', '90001');
 
 -- Insert 50 books from Kaggle dataset
 -- Note: These are sample books. Replace with actual dataset when available.
