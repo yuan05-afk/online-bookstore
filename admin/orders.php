@@ -50,85 +50,113 @@ $flash = getFlashMessage();
 include __DIR__ . '/../includes/admin_header.php';
 ?>
 
-<div class="admin-content">
-    <h1>Manage Orders</h1>
+<h1 class="admin-page-title">Order Management</h1>
 
-    <?php if ($flash): ?>
-        <div class="alert alert-<?php echo $flash['type']; ?>">
+<?php if ($flash): ?>
+    <div class="admin-card admin-mb-6"
+        style="border-left: 4px solid <?php echo $flash['type'] === 'success' ? 'var(--admin-success)' : 'var(--admin-danger)'; ?>;">
+        <div class="admin-card-body">
             <?php echo escapeHTML($flash['message']); ?>
         </div>
-    <?php endif; ?>
+    </div>
+<?php endif; ?>
 
-    <div class="filters">
-        <form method="GET" action="" class="filter-form">
-            <input type="text" name="search" placeholder="Search by order #, customer..."
-                value="<?php echo escapeHTML($search); ?>">
-
-            <select name="status">
-                <option value="">All Statuses</option>
-                <option value="Processing" <?php echo $status_filter === 'Processing' ? 'selected' : ''; ?>>Processing
-                </option>
-                <option value="Shipped" <?php echo $status_filter === 'Shipped' ? 'selected' : ''; ?>>Shipped</option>
-                <option value="Delivered" <?php echo $status_filter === 'Delivered' ? 'selected' : ''; ?>>Delivered
-                </option>
-                <option value="Cancelled" <?php echo $status_filter === 'Cancelled' ? 'selected' : ''; ?>>Cancelled
-                </option>
-            </select>
-
-            <button type="submit" class="btn btn-secondary">Filter</button>
-            <?php if ($search || $status_filter): ?>
-                <a href="orders.php" class="btn btn-secondary">Clear</a>
-            <?php endif; ?>
-        </form>
+<!-- Filter Bar -->
+<form method="GET" action="" class="admin-filter-bar">
+    <div class="admin-input-icon">
+        <iconify-icon icon="solar:magnifer-linear" width="18"></iconify-icon>
+        <input type="text" name="search" class="admin-input" placeholder="Search by order #, customer..."
+            value="<?php echo escapeHTML($search); ?>">
     </div>
 
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>Order #</th>
-                <th>Customer</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (empty($orders)): ?>
+    <select name="status" class="admin-select">
+        <option value="">All Statuses</option>
+        <option value="Processing" <?php echo $status_filter === 'Processing' ? 'selected' : ''; ?>>Processing</option>
+        <option value="Shipped" <?php echo $status_filter === 'Shipped' ? 'selected' : ''; ?>>Shipped</option>
+        <option value="Delivered" <?php echo $status_filter === 'Delivered' ? 'selected' : ''; ?>>Delivered</option>
+        <option value="Cancelled" <?php echo $status_filter === 'Cancelled' ? 'selected' : ''; ?>>Cancelled</option>
+    </select>
+
+    <button type="submit" class="admin-btn admin-btn-primary">Filter</button>
+    <?php if ($search || $status_filter): ?>
+        <a href="orders.php" class="admin-btn admin-btn-secondary">Clear</a>
+    <?php endif; ?>
+</form>
+
+<!-- Orders Table -->
+<div class="admin-card">
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
                 <tr>
-                    <td colspan="6" class="text-center">No orders found</td>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th class="text-right">Total</th>
+                    <th class="text-right">Actions</th>
                 </tr>
-            <?php else: ?>
-                <?php foreach ($orders as $order): ?>
+            </thead>
+            <tbody>
+                <?php if (empty($orders)): ?>
                     <tr>
-                        <td>
-                            <?php echo escapeHTML($order['order_number']); ?>
-                        </td>
-                        <td>
-                            <?php echo escapeHTML($order['first_name'] . ' ' . $order['last_name']); ?><br>
-                            <small>
-                                <?php echo escapeHTML($order['email']); ?>
-                            </small>
-                        </td>
-                        <td>
-                            <?php echo formatPrice($order['grand_total']); ?>
-                        </td>
-                        <td>
-                            <span class="status status-<?php echo strtolower($order['status']); ?>">
-                                <?php echo escapeHTML($order['status']); ?>
-                            </span>
-                        </td>
-                        <td>
-                            <?php echo date('M j, Y g:i A', strtotime($order['created_at'])); ?>
-                        </td>
-                        <td class="action-buttons">
-                            <a href="order_detail.php?id=<?php echo $order['id']; ?>" class="btn btn-sm btn-secondary">View</a>
+                        <td colspan="6" class="admin-text-center admin-text-muted" style="padding: 3rem;">
+                            No orders found
                         </td>
                     </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </tbody>
-    </table>
+                <?php else: ?>
+                    <?php foreach ($orders as $order): ?>
+                        <tr>
+                            <td>
+                                <strong><?php echo escapeHTML($order['order_number']); ?></strong>
+                            </td>
+                            <td>
+                                <div style="font-weight: var(--admin-font-weight-medium); color: var(--admin-text-primary);">
+                                    <?php echo escapeHTML($order['first_name'] . ' ' . $order['last_name']); ?>
+                                </div>
+                                <div
+                                    style="font-size: var(--admin-font-size-xs); color: var(--admin-text-secondary); margin-top: 0.25rem;">
+                                    <?php echo escapeHTML($order['email']); ?>
+                                </div>
+                            </td>
+                            <td>
+                                <?php
+                                $statusClass = 'neutral';
+                                $status = strtolower($order['status']);
+                                if ($status === 'delivered')
+                                    $statusClass = 'success';
+                                elseif ($status === 'processing' || $status === 'shipped')
+                                    $statusClass = 'warning';
+                                elseif ($status === 'cancelled')
+                                    $statusClass = 'danger';
+                                ?>
+                                <span class="admin-badge admin-badge-<?php echo $statusClass; ?>">
+                                    <?php echo escapeHTML($order['status']); ?>
+                                </span>
+                            </td>
+                            <td class="admin-text-secondary">
+                                <?php echo date('M j, Y', strtotime($order['created_at'])); ?>
+                                <div style="font-size: var(--admin-font-size-xs); margin-top: 0.25rem;">
+                                    <?php echo date('g:i A', strtotime($order['created_at'])); ?>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <strong><?php echo formatPrice($order['grand_total']); ?></strong>
+                            </td>
+                            <td>
+                                <div class="admin-table-actions">
+                                    <a href="order_detail.php?id=<?php echo $order['id']; ?>"
+                                        class="admin-btn admin-btn-sm admin-btn-secondary">
+                                        View Details
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/admin_footer.php'; ?>

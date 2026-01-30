@@ -20,41 +20,43 @@ if (!defined('SITE_NAME')) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/style.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/admin.css">
 </head>
 
-<body class="admin-body">
-    <div class="admin-layout">
-        <aside class="admin-sidebar">
-            <div class="admin-logo">
-                <h2>📚 Admin Panel</h2>
-            </div>
+<body class="admin-panel">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-header">
+            <h2 class="admin-sidebar-title">Admin Panel</h2>
+        </div>
 
-            <nav class="admin-nav">
-                <a href="<?php echo SITE_URL; ?>/admin/dashboard.php"
-                    class="<?php echo basename($_SERVER['PHP_SELF']) === 'dashboard.php' ? 'active' : ''; ?>">
-                    📊 Dashboard
-                </a>
-                <a href="<?php echo SITE_URL; ?>/admin/books.php"
-                    class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['books.php', 'book_form.php', 'book_actions.php']) ? 'active' : ''; ?>">
-                    📚 Manage Books
-                </a>
-                <a href="<?php echo SITE_URL; ?>/admin/orders.php"
-                    class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['orders.php', 'order_detail.php']) ? 'active' : ''; ?>">
-                    📦 Manage Orders
-                </a>
-                <a href="<?php echo SITE_URL; ?>/auth/logout.php">
-                    🚪 Logout
-                </a>
-            </nav>
+        <nav class="admin-sidebar-nav">
+            <a href="<?php echo SITE_URL; ?>/admin/dashboard.php"
+                class="admin-nav-item <?php echo basename($_SERVER['PHP_SELF']) === 'dashboard.php' ? 'active' : ''; ?>">
+                <iconify-icon icon="solar:widget-linear" width="18"></iconify-icon>
+                Dashboard
+            </a>
+            <a href="<?php echo SITE_URL; ?>/admin/books.php"
+                class="admin-nav-item <?php echo in_array(basename($_SERVER['PHP_SELF']), ['books.php', 'book_form.php', 'book_actions.php']) ? 'active' : ''; ?>">
+                <iconify-icon icon="solar:book-2-linear" width="18"></iconify-icon>
+                Books
+            </a>
+            <a href="<?php echo SITE_URL; ?>/admin/orders.php"
+                class="admin-nav-item <?php echo in_array(basename($_SERVER['PHP_SELF']), ['orders.php', 'order_detail.php']) ? 'active' : ''; ?>">
+                <iconify-icon icon="solar:bag-3-linear" width="18"></iconify-icon>
+                Orders
+            </a>
 
-            <div class="admin-user-info">
-                <p>Logged in as:</p>
-                <p><strong>
-                        <?php echo escapeHTML($_SESSION['first_name'] . ' ' . $_SESSION['last_name']); ?>
-                    </strong></p>
-            </div>
-        </aside>
+            <div class="admin-nav-divider"></div>
 
-        <main class="admin-main">
+            <a href="<?php echo SITE_URL; ?>/auth/logout.php" class="admin-nav-item danger">
+                <iconify-icon icon="solar:logout-2-linear" width="18"></iconify-icon>
+                Logout
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-content">
+        <div class="admin-content-wrapper">
