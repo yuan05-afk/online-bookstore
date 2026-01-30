@@ -1,37 +1,51 @@
 </div>
 </main>
 
-<footer class="site-footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>
-                    <?php echo SITE_NAME; ?>
-                </h3>
-                <p>Your trusted online bookstore for all your reading needs.</p>
+<footer class="user-footer">
+    <div class="user-footer-content">
+        <div class="user-footer-section">
+            <div class="user-footer-logo">
+                <iconify-icon icon="solar:book-bold" width="24"></iconify-icon>
+                <span><?php echo SITE_NAME; ?></span>
             </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="<?php echo SITE_URL; ?>/user/catalog.php">Browse Books</a></li>
-                    <li><a href="<?php echo SITE_URL; ?>/user/orders.php">My Orders</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p>Email: support@bookstore.com</p>
-                <p>Phone: (555) 123-4567</p>
-            </div>
+            <p class="user-footer-tagline">Your trusted online bookstore for all your reading needs.</p>
         </div>
 
-        <div class="footer-bottom">
-            <p>&copy;
-                <?php echo date('Y'); ?>
-                <?php echo SITE_NAME; ?>. All rights reserved.
-            </p>
+        <div class="user-footer-section">
+            <h4>Quick Links</h4>
+            <ul class="user-footer-links">
+                <li>
+                    <a href="<?php echo SITE_URL; ?>/user/catalog.php">
+                        <iconify-icon icon="solar:book-linear" width="16"></iconify-icon>
+                        Browse Books
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo SITE_URL; ?>/user/orders.php">
+                        <iconify-icon icon="solar:box-linear" width="16"></iconify-icon>
+                        My Orders
+                    </a>
+                </li>
+            </ul>
         </div>
+
+        <div class="user-footer-section">
+            <h4>Contact</h4>
+            <ul class="user-footer-contact">
+                <li>
+                    <iconify-icon icon="solar:letter-linear" width="16"></iconify-icon>
+                    <a href="mailto:support@bookstore.com">support@bookstore.com</a>
+                </li>
+                <li>
+                    <iconify-icon icon="solar:phone-linear" width="16"></iconify-icon>
+                    <span>(555) 123-4567</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="user-footer-bottom">
+        <p>&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?>. All rights reserved.</p>
     </div>
 </footer>
 

@@ -53,11 +53,23 @@ if (isLoggedIn() && !isAdmin()) {
                     <?php endif; ?>
                 </a>
 
-                <button class="user-menu-toggle"
-                    onclick="window.location.href='<?php echo SITE_URL; ?>/auth/logout.php'">
-                    <iconify-icon icon="solar:user-circle-linear" width="18" stroke-width="1.5"></iconify-icon>
-                    <span><?php echo escapeHTML($_SESSION['first_name'] ?? 'User'); ?></span>
-                </button>
+                <div class="user-menu">
+                    <button class="user-menu-toggle" id="userMenuToggle">
+                        <iconify-icon icon="solar:user-circle-linear" width="18" stroke-width="1.5"></iconify-icon>
+                        <span><?php echo escapeHTML($_SESSION['first_name'] ?? 'User'); ?></span>
+                        <iconify-icon icon="solar:alt-arrow-down-linear" width="14"></iconify-icon>
+                    </button>
+                    <div class="user-menu-dropdown" id="userMenuDropdown">
+                        <a href="<?php echo SITE_URL; ?>/user/profile.php" class="user-menu-item">
+                            <iconify-icon icon="solar:user-linear" width="18"></iconify-icon>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="<?php echo SITE_URL; ?>/auth/logout.php" class="user-menu-item">
+                            <iconify-icon icon="solar:logout-2-linear" width="18"></iconify-icon>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
