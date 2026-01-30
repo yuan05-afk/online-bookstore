@@ -392,15 +392,19 @@
 
 /* Primary Button */
 .admin-btn-primary {
-    background-color: var(--admin-primary);
+    background-color: #18181b;
     color: var(--admin-text-white);
-    border-color: var(--admin-primary);
+    border-color: #18181b;
 }
 
 .admin-btn-primary:hover:not(:disabled) {
-    background-color: var(--admin-primary-hover);
-    border-color: var(--admin-primary-hover);
-    box-shadow: var(--admin-shadow-md);
+    background-color: #27272a;
+    border-color: #27272a;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.admin-btn-primary:active:not(:disabled) {
+    transform: scale(0.98);
 }
 
 /* Secondary Button */
@@ -413,6 +417,11 @@
 .admin-btn-secondary:hover:not(:disabled) {
     background-color: var(--admin-bg-hover);
     border-color: var(--admin-border-dark);
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.admin-btn-secondary:active:not(:disabled) {
+    transform: scale(0.98);
 }
 
 /* Danger Button */
@@ -425,7 +434,11 @@
 .admin-btn-danger:hover:not(:disabled) {
     background-color: #dc2626;
     border-color: #dc2626;
-    box-shadow: var(--admin-shadow-md);
+    box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.admin-btn-danger:active:not(:disabled) {
+    transform: scale(0.98);
 }
 
 /* Icon Button */
@@ -607,6 +620,10 @@
     display: flex;
     gap: var(--admin-space-2);
     justify-content: flex-end;
+}
+
+.text-center .admin-table-actions {
+    justify-content: center;
 }
 
 /* ============================================

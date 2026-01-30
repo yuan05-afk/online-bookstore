@@ -47,6 +47,19 @@ if (!defined('SITE_NAME')) {
                 <iconify-icon icon="solar:bag-3-linear" width="18"></iconify-icon>
                 Orders
             </a>
+            <a href="<?php echo SITE_URL; ?>/admin/accounts.php"
+                class="admin-nav-item <?php echo in_array(basename($_SERVER['PHP_SELF']), ['accounts.php', 'account_detail.php', 'account_actions.php']) ? 'active' : ''; ?>">
+                <iconify-icon icon="solar:users-group-rounded-linear" width="18"></iconify-icon>
+                Accounts
+            </a>
+
+            <div class="admin-nav-divider"></div>
+
+            <a href="<?php echo SITE_URL; ?>/admin/profile.php"
+                class="admin-nav-item <?php echo in_array(basename($_SERVER['PHP_SELF']), ['profile.php', 'profile_actions.php']) ? 'active' : ''; ?>">
+                <iconify-icon icon="solar:user-circle-linear" width="18"></iconify-icon>
+                Profile
+            </a>
 
             <div class="admin-nav-divider"></div>
 
