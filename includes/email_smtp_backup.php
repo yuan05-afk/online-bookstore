@@ -1,13 +1,16 @@
 <?php
 /**
- * Email Helper Functions - SendGrid Implementation
- * Handles email sending using SendGrid API
+ * Email Helper Functions
+ * Handles SMTP email sending using PHPMailer
  */
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 require_once BASE_PATH . '/vendor/autoload.php';
 
 /**
- * Send email via SendGrid API
+ * Send email via SMTP
  * 
  * @param string $to Recipient email address
  * @param string $subject Email subject
@@ -17,40 +20,40 @@ require_once BASE_PATH . '/vendor/autoload.php';
  */
 function sendEmail($to, $subject, $htmlBody, $textBody = '')
 {
+    $mail = new PHPMailer(true);
+
     try {
-        // Get SendGrid API key from environment
-        $apiKey = $_ENV['SENDGRID_API_KEY'] ?? getenv('SENDGRID_API_KEY');
-        $fromEmail = $_ENV['SENDGRID_FROM_EMAIL'] ?? getenv('SENDGRID_FROM_EMAIL') ?: 'noreply@nightowlbooks.com';
-        $fromName = $_ENV['SENDGRID_FROM_NAME'] ?? getenv('SENDGRID_FROM_NAME') ?: 'Night Owl Books';
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->SMTPSecure = SMTP_ENCRYPTION;
+        $mail->Port = SMTP_PORT;
 
-        if (!$apiKey) {
-            throw new Exception('SendGrid API key not configured');
-        }
+        // Recipients
+        $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
+        $mail->addAddress($to);
+        $mail->addReplyTo(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
 
-        $email = new \SendGrid\Mail\Mail();
-        $email->setFrom($fromEmail, $fromName);
-        $email->setSubject($subject);
-        $email->addTo($to);
-        $email->addContent("text/plain", $textBody ?: strip_tags($htmlBody));
-        $email->addContent("text/html", $htmlBody);
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $htmlBody;
+        $mail->AltBody = $textBody ?: strip_tags($htmlBody);
 
-        $sendgrid = new \SendGrid($apiKey);
-        $response = $sendgrid->send($email);
+        $mail->send();
 
-        if ($response->statusCode() >= 200 && $response->statusCode() < 300) {
-            return [
-                'success' => true,
-                'message' => 'Email sent successfully',
-                'message_id' => $response->headers()['X-Message-Id'] ?? null
-            ];
-        } else {
-            throw new Exception('SendGrid returned status ' . $response->statusCode());
-        }
+        return [
+            'success' => true,
+            'message' => 'Email sent successfully'
+        ];
     } catch (Exception $e) {
-        error_log("Email sending failed: " . $e->getMessage());
+        error_log("Email sending failed: {$mail->ErrorInfo}");
         return [
             'success' => false,
-            'message' => "Email could not be sent. Error: " . $e->getMessage()
+            'message' => "Email could not be sent. Error: {$mail->ErrorInfo}"
         ];
     }
 }

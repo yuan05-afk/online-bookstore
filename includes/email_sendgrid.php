@@ -19,9 +19,9 @@ function sendEmail($to, $subject, $htmlBody, $textBody = '')
 {
     try {
         // Get SendGrid API key from environment
-        $apiKey = $_ENV['SENDGRID_API_KEY'] ?? getenv('SENDGRID_API_KEY');
-        $fromEmail = $_ENV['SENDGRID_FROM_EMAIL'] ?? getenv('SENDGRID_FROM_EMAIL') ?: 'noreply@nightowlbooks.com';
-        $fromName = $_ENV['SENDGRID_FROM_NAME'] ?? getenv('SENDGRID_FROM_NAME') ?: 'Night Owl Books';
+        $apiKey = getenv('SENDGRID_API_KEY');
+        $fromEmail = getenv('SENDGRID_FROM_EMAIL') ?: 'noreply@nightowlbooks.com';
+        $fromName = getenv('SENDGRID_FROM_NAME') ?: 'Night Owl Books';
 
         if (!$apiKey) {
             throw new Exception('SendGrid API key not configured');
