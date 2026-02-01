@@ -1,8 +1,49 @@
-*.log
+*.l# Environment and Configuration
 .env
-.DS_Store
-Thumbs.db
+.env.local
+.env.*.local
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# IDE and Editor
 .vscode/
 .idea/
-vendor/
-node_modules/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+/logs/*.log
+*.log
+
+# Temporary and Debug Files
+*_hash.txt
+*_hashes.txt
+debug_*.php
+test_*.php
+fix_*.php
+check_*.php
+generate_*.php
+get_*.php
+verify_*.php
+email_preview.php
+*.sql.bak
+FINAL_*.sql
+
+# Build and Cache
+.cache/
+.tmp/
+/dist/
+/build/
+
+# OS Files
+Thumbs.db
+.DS_Store
+
+# Backup Files
+*.bak
+*.backup
+*~es/
