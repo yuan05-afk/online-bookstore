@@ -10,17 +10,15 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /
     envVars:
-      # Database Configuration (You'll need to create a database separately)
-      # Option 1: Use Render PostgreSQL (free tier available)
-      # Option 2: Use external MySQL service (Railway, PlanetScale, etc.)
+      # Database Configuration - FreeSQLDatabase
       - key: DB_HOST
-        sync: false  # Set manually in Render dashboard
+        value: sql12.freesqldatabase.com
       - key: DB_NAME
-        value: online_bookstore
+        value: sql12815923
       - key: DB_USER
-        sync: false  # Set manually in Render dashboard
+        value: sql12815923
       - key: DB_PASSWORD
-        sync: false  # Set manually in Render dashboard
+        value: gJUmV8zau4
       
       # Application Settings
       - key: SITE_URL
