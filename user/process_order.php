@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../includes/security.php';
 require_once __DIR__ . '/../includes/payment_mock.php';
+require_once __DIR__ . '/../includes/email.php';
 require_once __DIR__ . '/../middleware/auth_middleware.php';
 
 requireUser();
@@ -170,24 +171,22 @@ try {
     $stmt = $db->prepare("DELETE FROM cart_items WHERE user_id = ?");
     $stmt->execute([$user_id]);
 
-    // Log order confirmation (simulated email)
-    $logDir = __DIR__ . '/../logs';
-    if (!file_exists($logDir)) {
-        mkdir($logDir, 0755, true);
-    }
-
-    $logEntry = sprintf(
-        "[%s] Order Confirmation - Order #%s | User: %s | Total: $%.2f | Transaction: %s\n",
-        date('Y-m-d H:i:s'),
-        $orderNumber,
-        $_SESSION['email'],
-        $total,
-        $paymentResult['transaction_id']
-    );
-
-    file_put_contents($logDir . '/order_confirmations.log', $logEntry, FILE_APPEND);
-
+    // Commit transaction first
     $db->commit();
+
+    // Send order confirmation email
+    // Note: Email sending happens AFTER commit so order is saved even if email fails
+    try {
+        $emailResult = sendOrderConfirmationEmail($orderId);
+        if ($emailResult['success']) {
+            error_log("Order confirmation email sent successfully for order #{$orderNumber}");
+        } else {
+            error_log("Failed to send order confirmation email for order #{$orderNumber}: {$emailResult['message']}");
+        }
+    } catch (Exception $e) {
+        // Log error but don't fail the order
+        error_log("Email sending exception for order #{$orderNumber}: " . $e->getMessage());
+    }
 
     // Redirect to confirmation page
     $_SESSION['order_confirmation'] = [

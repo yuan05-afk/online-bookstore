@@ -125,7 +125,7 @@ include __DIR__ . '/../includes/admin_header.php';
                                 $status = strtolower($order['status']);
                                 if ($status === 'delivered')
                                     $statusClass = 'success';
-                                elseif ($status === 'processing' || $status === 'shipped')
+                                elseif ($status === 'processing')
                                     $statusClass = 'warning';
                                 elseif ($status === 'cancelled')
                                     $statusClass = 'danger';

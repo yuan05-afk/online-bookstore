@@ -1613,6 +1613,221 @@ body.user-page *::after {
 }
 
 /* ============================================
+   ORDER DETAIL PAGE - ADDITIONAL STYLES
+   ============================================ */
+.user-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.user-detail-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--user-zinc-900);
+    margin: 0;
+}
+
+/* Order Progress Tracker */
+.user-order-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid var(--user-zinc-200);
+}
+
+.user-progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    position: relative;
+}
+
+.user-progress-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--user-zinc-100);
+    color: var(--user-zinc-400);
+    border: 2px solid var(--user-zinc-200);
+    transition: all 0.3s;
+}
+
+.user-progress-step.completed .user-progress-icon {
+    background: var(--user-emerald-50);
+    color: var(--user-emerald-600);
+    border-color: var(--user-emerald-500);
+}
+
+.user-progress-step.active .user-progress-icon {
+    background: var(--user-zinc-900);
+    color: white;
+    border-color: var(--user-zinc-900);
+}
+
+.user-progress-step span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--user-zinc-600);
+}
+
+.user-progress-step.completed span {
+    color: var(--user-emerald-700);
+}
+
+.user-progress-step.active span {
+    color: var(--user-zinc-900);
+}
+
+.user-progress-line {
+    flex: 1;
+    height: 2px;
+    background: var(--user-zinc-200);
+    margin: 0 -1rem;
+    position: relative;
+    top: -1.5rem;
+}
+
+.user-progress-line.completed {
+    background: var(--user-emerald-500);
+}
+
+/* Order Items Section */
+.user-order-items-section {
+    margin-bottom: 2rem;
+}
+
+.user-order-items-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--user-zinc-900);
+    margin-bottom: 1.5rem;
+}
+
+.user-order-items-list {
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid var(--user-zinc-200);
+    overflow: hidden;
+}
+
+.user-order-item {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--user-zinc-100);
+}
+
+.user-order-item:last-child {
+    border-bottom: none;
+}
+
+.user-order-item-image {
+    width: 60px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--user-zinc-200);
+    background: var(--user-zinc-50);
+}
+
+.user-order-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-order-item-details {
+    flex: 1;
+    padding: 0 1.5rem;
+}
+
+.user-order-item-details h4 {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--user-zinc-900);
+    margin: 0 0 0.5rem 0;
+}
+
+.user-order-item-details p {
+    font-size: 0.875rem;
+    color: var(--user-zinc-500);
+    margin: 0.25rem 0;
+}
+
+.user-order-item-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--user-zinc-900);
+    flex-shrink: 0;
+}
+
+/* Info Cards */
+.user-info-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--user-zinc-200);
+}
+
+.user-info-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--user-zinc-900);
+    margin: 0 0 1rem 0;
+}
+
+.user-info-card p {
+    font-size: 0.875rem;
+    color: var(--user-zinc-600);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.user-info-card p strong {
+    color: var(--user-zinc-900);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .user-order-progress {
+        padding: 1.5rem 1rem;
+    }
+
+    .user-progress-step span {
+        font-size: 0.75rem;
+    }
+
+    .user-progress-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .user-order-item {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .user-order-item-price {
+        width: 100%;
+        text-align: right;
+    }
+}
+
+/* ============================================
    BACK LINK
    ============================================ */
 .user-back-link {

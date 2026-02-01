@@ -23,8 +23,17 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Enable Apache modules
 RUN a2enmod rewrite headers
 
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 # Set working directory
 WORKDIR /var/www/html
+
+# Copy composer files first for better caching
+COPY composer.json composer.lock* ./
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Copy application files
 COPY . /var/www/html/
@@ -40,7 +49,7 @@ RUN echo '<Directory /var/www/html>\n\
     Options Indexes FollowSymLinks\n\
     AllowOverride All\n\
     Require all granted\n\
-</Directory>' > /etc/apache2/conf-available/bookstore.conf \
+    </Directory>' > /etc/apache2/conf-available/bookstore.conf \
     && a2enconf bookstore
 
 # Expose port 80

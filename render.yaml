@@ -1,0 +1,51 @@
+# Render.com Blueprint Configuration
+# This file enables auto-deploy and PR previews for your Online Bookstore
+
+services:
+  # Web Application
+  - type: web
+    name: online-bookstore
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      # Database Configuration (You'll need to create a database separately)
+      # Option 1: Use Render PostgreSQL (free tier available)
+      # Option 2: Use external MySQL service (Railway, PlanetScale, etc.)
+      - key: DB_HOST
+        sync: false  # Set manually in Render dashboard
+      - key: DB_NAME
+        value: online_bookstore
+      - key: DB_USER
+        sync: false  # Set manually in Render dashboard
+      - key: DB_PASSWORD
+        sync: false  # Set manually in Render dashboard
+      
+      # Application Settings
+      - key: SITE_URL
+        value: https://online-bookstore.onrender.com
+      - key: TAX_RATE
+        value: "0.085"
+      
+      # Security
+      - key: SESSION_TIMEOUT
+        value: "7200"
+      - key: CSRF_TOKEN_EXPIRE
+        value: "3600"
+      
+      # SMTP Email Configuration
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false  # Set manually in Render dashboard
+      - key: SMTP_PASSWORD
+        sync: false  # Set manually in Render dashboard
+      - key: SMTP_FROM_EMAIL
+        value: noreply@nightowlbooks.com
+      - key: SMTP_FROM_NAME
+        value: Night Owl Books
+      - key: SMTP_ENCRYPTION
+        value: tls
