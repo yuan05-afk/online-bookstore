@@ -83,7 +83,7 @@ function addToCart(bookId, quantity = 1) {
     formData.append('book_id', bookId);
     formData.append('quantity', quantity);
 
-    fetch('/online-bookstore/api/cart_actions.php', {
+    fetch('../api/cart_actions.php', {
         method: 'POST',
         body: formData
     })
@@ -109,7 +109,7 @@ function updateCartItem(cartItemId, quantity) {
     formData.append('cart_item_id', cartItemId);
     formData.append('quantity', quantity);
 
-    fetch('/online-bookstore/api/cart_actions.php', {
+    fetch('../api/cart_actions.php', {
         method: 'POST',
         body: formData
     })
@@ -133,7 +133,7 @@ function removeFromCart(cartItemId) {
     formData.append('action', 'remove');
     formData.append('cart_item_id', cartItemId);
 
-    fetch('/online-bookstore/api/cart_actions.php', {
+    fetch('../api/cart_actions.php', {
         method: 'POST',
         body: formData
     })
@@ -156,7 +156,7 @@ function updateCartCount() {
     const formData = new FormData();
     formData.append('action', 'get_count');
 
-    fetch('/online-bookstore/api/cart_actions.php', {
+    fetch('../api/cart_actions.php', {
         method: 'POST',
         body: formData
     })
