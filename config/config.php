@@ -24,10 +24,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Application settings
 define('SITE_NAME', 'Online Bookstore');
-define('SITE_URL', 'http://localhost/online-bookstore');
+define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/online-bookstore');
 define('BASE_PATH', dirname(__DIR__));
 
-// Tax rate (8.5%)
+// Tax rate
 define('TAX_RATE', 0.085);
 
 // Upload settings

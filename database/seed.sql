@@ -17,12 +17,12 @@ INSERT INTO categories (name, slug, description) VALUES
 -- Insert admin user (password: admin123)
 -- Password hash generated with: password_hash('admin123', PASSWORD_BCRYPT, ['cost' => 12])
 INSERT INTO users (email, password_hash, first_name, last_name, role, phone, address, city, state, zip_code) VALUES
-('admin@bookstore.com', '$2y$12$aBhTIGuTM65R4MIMvciIPONqMItOPMVdI0nohLmIWHie4zo3H3SeOS', 'Admin', 'User', 'admin', '555-0100', '123 Admin St', 'New York', 'NY', '10001');
+('admin@bookstore.com', '$2y$12$x0WRDYb8rDAJU5uHUlaeDu.cTLuPfivogkPTFZKOs3WXq5xKGk062', 'Admin', 'User', 'admin', '555-0100', '123 Admin St', 'New York', 'NY', '10001');
 
 -- Insert test user (password: user123)
 -- Password hash generated with: password_hash('user123', PASSWORD_BCRYPT, ['cost' => 12])
 INSERT INTO users (email, password_hash, first_name, last_name, role, phone, address, city, state, zip_code) VALUES
-('user@bookstore.com', '$2y$12$VZL5zI6Pq5REgT1.Y71Zu.NqMItOPMVdI0nohLmIWHie4zo3H3SeOS', 'Test', 'User', 'user', '555-0200', '456 User Ave', 'Los Angeles', 'CA', '90001');
+('user@bookstore.com', '$2y$12$FcJDfAw.k0wr1lsU25yTwO4nVPYZtNaav0YKpu18j93X4MpSW5c4O', 'Test', 'User', 'user', '555-0200', '456 User Ave', 'Los Angeles', 'CA', '90001');
 
 -- Insert 50 books
 INSERT INTO books (isbn, title, author, price, description, cover_image, category_id, stock_quantity) VALUES
