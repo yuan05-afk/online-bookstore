@@ -129,6 +129,17 @@ include __DIR__ . '/../includes/admin_header.php';
                                         class="admin-btn admin-btn-sm admin-btn-secondary">
                                         View Details
                                     </a>
+                                    <?php if ($user['id'] !== $_SESSION['user_id']): ?>
+                                        <form method="POST" action="account_actions.php" style="display: inline;"
+                                            onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                                            <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                                            <input type="hidden" name="account_id" value="<?php echo $user['id']; ?>">
+                                            <input type="hidden" name="action" value="delete_account">
+                                            <button type="submit" class="admin-btn admin-btn-sm admin-btn-danger">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>

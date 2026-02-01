@@ -59,6 +59,40 @@ if ($action === 'promote_to_admin') {
     redirect(SITE_URL . '/admin/account_detail.php?id=' . $account_id);
 }
 
+// Delete User Account
+if ($action === 'delete_account') {
+    try {
+        // Start transaction
+        $db->beginTransaction();
+
+        // Delete user's cart items
+        $stmt = $db->prepare("DELETE FROM cart_items WHERE user_id = ?");
+        $stmt->execute([$account_id]);
+
+        // Note: Orders and order items are preserved for record keeping
+        // They are linked via foreign key with ON DELETE CASCADE for order_items
+        // but orders remain for historical data
+
+        // Delete the user account
+        $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
+
+        if ($stmt->execute([$account_id])) {
+            $db->commit();
+            setFlashMessage('success', 'User account deleted successfully');
+            redirect(SITE_URL . '/admin/accounts.php');
+        } else {
+            $db->rollBack();
+            setFlashMessage('error', 'Failed to delete user account');
+        }
+    } catch (Exception $e) {
+        $db->rollBack();
+        error_log("Error deleting user account: " . $e->getMessage());
+        setFlashMessage('error', 'An error occurred while deleting the account');
+    }
+
+    redirect(SITE_URL . '/admin/account_detail.php?id=' . $account_id);
+}
+
 // Invalid action
 setFlashMessage('error', 'Invalid action');
 redirect(SITE_URL . '/admin/account_detail.php?id=' . $account_id);
