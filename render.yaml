@@ -10,15 +10,21 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /
     envVars:
-      # Database Configuration - FreeSQLDatabase
+      # Database Configuration - Supabase Postgres
+      - key: DB_DRIVER
+        value: pgsql
       - key: DB_HOST
-        value: sql12.freesqldatabase.com
+        sync: false
+      - key: DB_PORT
+        value: "5432"
       - key: DB_NAME
-        value: sql12815923
+        sync: false
       - key: DB_USER
-        value: sql12815923
+        sync: false
       - key: DB_PASSWORD
-        value: gJUmV8zau4
+        sync: false
+      - key: DB_SSLMODE
+        value: require
       
       # Application Settings
       - key: SITE_URL

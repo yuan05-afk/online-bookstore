@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
+    libpq-dev \
     zip \
     unzip \
     && rm -rf /var/lib/apt/lists/*
@@ -16,6 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
     pdo \
+    pdo_pgsql \
     pdo_mysql \
     mysqli \
     gd

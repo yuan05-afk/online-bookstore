@@ -9,25 +9,34 @@ class Database {
     private $connection;
     
     // Database configuration
+    private $driver;
     private $host;
+    private $port;
     private $dbname;
     private $username;
     private $password;
     private $charset = 'utf8mb4';
+    private $sslmode;
     
     private function __construct() {
         // Check if running in Docker environment
         if (getenv('DB_HOST')) {
+            $this->driver = getenv('DB_DRIVER') ?: 'mysql';
             $this->host = getenv('DB_HOST');
+            $this->port = getenv('DB_PORT') ?: ($this->driver === 'pgsql' ? '5432' : '3306');
             $this->dbname = getenv('DB_NAME');
             $this->username = getenv('DB_USER');
             $this->password = getenv('DB_PASSWORD');
+            $this->sslmode = getenv('DB_SSLMODE') ?: null;
         } else {
             // Local XAMPP configuration
+            $this->driver = 'mysql';
             $this->host = 'localhost';
+            $this->port = '3306';
             $this->dbname = 'online_bookstore';
             $this->username = 'root';
             $this->password = '';
+            $this->sslmode = null;
         }
         
         $this->connect();
@@ -35,7 +44,15 @@ class Database {
     
     private function connect() {
         try {
-            $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}";
+            if ($this->driver === 'pgsql') {
+                $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->dbname}";
+                if ($this->sslmode) {
+                    $dsn .= ";sslmode={$this->sslmode}";
+                }
+            } else {
+                $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->dbname};charset={$this->charset}";
+            }
+
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

@@ -31,10 +31,11 @@ if (!$book) {
 }
 
 // Get related books from same category
+$randomFunction = $db->getAttribute(PDO::ATTR_DRIVER_NAME) === 'pgsql' ? 'RANDOM()' : 'RAND()';
 $relatedStmt = $db->prepare("
     SELECT * FROM books
     WHERE category_id = ? AND id != ?
-    ORDER BY RAND()
+    ORDER BY $randomFunction
     LIMIT 4
 ");
 $relatedStmt->execute([$book['category_id'], $book_id]);

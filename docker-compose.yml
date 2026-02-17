@@ -9,7 +9,9 @@ services:
     volumes:
       - .:/var/www/html
     environment:
+      - DB_DRIVER=mysql
       - DB_HOST=db
+      - DB_PORT=3306
       - DB_NAME=online_bookstore
       - DB_USER=bookstore_user
       - DB_PASSWORD=bookstore_pass
