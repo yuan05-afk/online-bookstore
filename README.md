@@ -3,7 +3,7 @@
 An online bookstore with a customer storefront and an admin panel. Customers browse a catalog, fill a cart, check out
 with a mock card payment and follow their orders. Admins manage books, orders and accounts.
 
-**Live:** https://online-bookstore.vercel.app
+**Live:** https://night-owl-books.vercel.app
 
 The first version was plain PHP and MySQL. It has been converted to **Next.js (App Router, TypeScript)** on **Vercel**
 with **Postgres on Neon**, keeping the same screens, the same stylesheets and the same features.
