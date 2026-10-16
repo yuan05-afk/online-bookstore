@@ -1,358 +1,117 @@
-# 📚 Online Bookstore - Developer Guide
+# Night Owl Books
 
-A full-featured online bookstore management system built with PHP, MySQL, and modern web technologies.
+An online bookstore with a customer storefront and an admin panel. Customers browse a catalog, fill a cart, check out
+with a mock card payment and follow their orders. Admins manage books, orders and accounts.
 
----
+**Live:** https://online-bookstore.vercel.app
 
-## 🚀 Quick Start
+The first version was plain PHP and MySQL. It has been converted to **Next.js (App Router, TypeScript)** on **Vercel**
+with **Postgres on Neon**, keeping the same screens, the same stylesheets and the same features.
 
-### Prerequisites
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Composer
-- Node.js (optional, for development)
+## What you can do
 
-### Local Development Setup
+**Customers**
+- Browse 50 books by category, search by title, author or ISBN, sort and page through results.
+- Add to cart from the catalog or from a book page (quantity is limited by stock), change quantities, remove items.
+- Check out with a mock card payment, then see a confirmation, the order history and a progress view per order.
+- Update personal details, address and password.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yuan05-afk/online-bookstore.git
-   cd online-bookstore
-   ```
+**Admins**
+- Dashboard with real totals (books, orders, users, revenue) and the last 7 days, recent orders and a low-stock list.
+- Add, edit and delete books. A book that appears in an order cannot be deleted; set its stock to 0 instead.
+- Search and filter orders, change an order's status and add a note. Cancelling puts the books back in stock.
+- List and search accounts, view an account's orders, promote a user to admin, delete an account (its orders are kept).
 
-2. **Install dependencies**
-   ```bash
-   composer install
-   ```
+## Demo accounts
 
-3. **Configure environment**
-   ```bash
-   cp .env.example .env
-   ```
-   Edit `.env` and set your database credentials.
+| Role | Email | Password |
+|---|---|---|
+| Customer | `user@bookstore.com` | `user123` |
+| Admin | `admin@bookstore.com` | set by `SEED_ADMIN_PASSWORD`, or printed once by `npm run db:seed` |
 
-4. **Import database**
-   - Create a MySQL database named `online_bookstore`
-   - Import `database/schema.sql`
-   - Import `database/seed.sql` (includes 50 books + test users)
+The admin password is deliberately not published, so visitors to the public demo cannot edit the catalog.
 
-5. **Start development server**
-   ```bash
-   # Using PHP built-in server
-   php -S localhost:8000
-   
-   # Or using XAMPP/WAMP
-   # Place project in htdocs/www folder
-   ```
+**Test cards** (mock payment, nothing is charged): `4532 0151 1283 0366` is approved, `4000 0000 0000 0002` is always
+declined. Any future expiry date and a 3 or 4 digit CVV.
 
-6. **Access the application**
-   - User Frontend: `http://localhost:8000/user/catalog.php`
-   - Admin Panel: `http://localhost:8000/admin/dashboard.php`
+## Stack
 
-### Default Credentials
+| Layer | Choice |
+|---|---|
+| App | Next.js 16 (App Router, Server Actions), React 19, TypeScript |
+| Database | Postgres on **Neon** (AWS Singapore), Drizzle ORM, pooled `pg` connection |
+| Sessions | Signed JWT in an HTTP-only cookie (`jose`), 2 hours; the user is read from the database on every request |
+| Passwords | bcrypt (`bcryptjs`), compatible with the old PHP `password_hash()` hashes |
+| Styling | The original stylesheets, split per area (shop, auth, admin), plus Inter and bundled Solar icons |
+| Email | Optional order confirmation through Resend |
+| Hosting | Vercel |
 
-**Admin Account:**
-- Email: `admin@bookstore.com`
-- Password: `admin123`
+## What changed in the conversion
 
-**Test User Account:**
-- Email: `user@bookstore.com`
-- Password: `user123`
+- **Money is stored in whole cents**, so totals and 8.5% tax never pick up floating point error.
+- **Checkout is one transaction.** It locks the books being bought, re-checks stock, then writes the order, the lines and
+  the stock change together. Two people cannot both take the last copy.
+- **Orders keep the customer's name and email**, so deleting an account no longer deletes (or orphans) its orders.
+- **Fixed from the PHP version:** the change-password form read a column that does not exist; searches used a
+  case-sensitive `LIKE` on Postgres; the cart could exceed stock by adding the same book twice; the mock payment declined
+  10% of valid cards at random (now deterministic); the admin dashboard showed made-up trend percentages; `session_id`
+  and unused cart columns are gone; the demo admin password was published on the sign-in page.
+- **Security:** Server Actions only (Next checks the request origin), every admin action re-checks the role, banner text
+  comes from a fixed list of codes rather than from the URL, redirects after sign-in only go to paths on this site.
+- **Faster:** icons are bundled instead of fetched from a CDN, fonts are self-hosted by Next, pages are server-rendered.
 
----
-
-## 🏗️ Project Structure
-
-```
-online-bookstore/
-├── admin/              # Admin panel pages
-├── api/                # API endpoints (AJAX)
-├── assets/             # Static assets
-│   ├── css/           # Stylesheets
-│   ├── js/            # JavaScript files
-│   └── images/        # Images and logos
-├── auth/              # Authentication pages
-├── config/            # Configuration files
-├── database/          # Database schema and seeds
-├── includes/          # Reusable PHP components
-├── middleware/        # Authentication middleware
-├── user/              # User-facing pages
-├── vendor/            # Composer dependencies
-├── .env.example       # Environment template
-├── composer.json      # PHP dependencies
-├── docker-compose.yml # Docker setup
-├── Dockerfile         # Docker image
-└── render.yaml        # Render deployment config
-```
-
----
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Copy `.env.example` to `.env` and configure:
-
-```env
-# Database
-DB_HOST=localhost
-DB_NAME=online_bookstore
-DB_USER=root
-DB_PASSWORD=
-
-# SendGrid Email (Production)
-SENDGRID_API_KEY=your_api_key
-SENDGRID_FROM_EMAIL=your-email@example.com
-SENDGRID_FROM_NAME=Night Owl Books
-
-# Application
-SITE_URL=http://localhost/online-bookstore
-TAX_RATE=0.085
-```
-
-### Database Configuration
-
-The application uses MySQL with the following tables:
-- `users` - User accounts (admin/customer)
-- `books` - Book catalog
-- `categories` - Book categories
-- `cart_items` - Shopping cart
-- `orders` - Order records
-- `order_items` - Order line items
-
----
-
-## 🐳 Docker Deployment
-
-### Local Development with Docker
+## Run locally
 
 ```bash
-# Start all services
-docker-compose up -d
-
-# Access application
-http://localhost:8080
-
-# Access phpMyAdmin
-http://localhost:8081
+npm install
+cp .env.example .env.local        # add the Neon strings and a SESSION_SECRET
+npm run db:generate               # only needed after changing src/db/schema.ts
+npm run db:migrate                # creates the tables (uses DATABASE_URL_UNPOOLED)
+npm run db:seed                   # categories, books, two accounts, five sample orders
+npm run dev                       # http://localhost:3000
 ```
 
-### Production Docker Build
+Checks:
 
 ```bash
-# Build image
-docker build -t online-bookstore .
-
-# Run container
-docker run -p 80:80 \
-  -e DB_HOST=your_db_host \
-  -e DB_NAME=your_db_name \
-  -e DB_USER=your_db_user \
-  -e DB_PASSWORD=your_db_password \
-  online-bookstore
+npm run lint
+npm run typecheck
+npm test                          # money, payment, sessions, validation, search
+npm run build
 ```
 
----
+## Environment variables
 
-## 🚢 Production Deployment
+| Variable | Needed for | Notes |
+|---|---|---|
+| `DATABASE_URL` | the app | Neon **pooled** string (host contains `-pooler`) |
+| `DATABASE_URL_UNPOOLED` | migrate and seed | Neon direct string |
+| `SESSION_SECRET` | the app | 32 or more characters. `openssl rand -base64 32` |
+| `NEXT_PUBLIC_SITE_URL` | metadata | The public address, no trailing slash |
+| `RESEND_API_KEY`, `EMAIL_FROM` | optional | Order confirmation email. Without a key nothing is sent and orders are unaffected |
+| `SEED_ADMIN_PASSWORD` | seed | Password for the admin account. Random and printed once if empty |
 
-### Render Deployment
+## Deploy (Vercel + Neon)
 
-This project is configured for easy deployment on Render using `render.yaml`.
+1. Create a Neon project in the region closest to your Vercel function region (this one uses AWS Singapore and `sin1`).
+2. Import the repository in Vercel and add `DATABASE_URL`, `SESSION_SECRET` and `NEXT_PUBLIC_SITE_URL` for Production.
+3. Set **Settings > Functions > Function Region** to the same region as the database.
+4. From your machine, run `npm run db:migrate` and `npm run db:seed` once with `DATABASE_URL_UNPOOLED` set.
 
-1. **Push to GitHub**
-   ```bash
-   git push origin main
-   ```
+## Project structure
 
-2. **Create Render Account**
-   - Go to https://render.com
-   - Connect your GitHub repository
-
-3. **Deploy via Blueprint**
-   - Render will detect `render.yaml`
-   - Click "Apply" to deploy
-
-4. **Set Environment Variables**
-   Add these in Render Dashboard:
-   - `SENDGRID_API_KEY`
-   - `SENDGRID_FROM_EMAIL`
-   - `SENDGRID_FROM_NAME`
-   - `SITE_URL` (your Render URL)
-
-5. **Database Setup**
-   - Use external MySQL (FreeSQLDatabase or similar)
-   - Import `database/schema.sql` and `database/seed.sql`
-
-See `docs/DEPLOYMENT.md` for detailed deployment guide.
-
----
-
-## 📧 Email Configuration
-
-### SendGrid Setup (Recommended for Production)
-
-1. Create SendGrid account: https://signup.sendgrid.com/
-2. Generate API key (Settings → API Keys)
-3. Verify sender email (Settings → Sender Authentication)
-4. Add credentials to `.env`:
-   ```env
-   SENDGRID_API_KEY=SG.your_key_here
-   SENDGRID_FROM_EMAIL=your-verified-email@example.com
-   SENDGRID_FROM_NAME=Night Owl Books
-   ```
-
-See `docs/SENDGRID_SETUP.md` for detailed guide.
-
----
-
-## 🎨 Features
-
-### User Features
-- ✅ Browse book catalog with search and filters
-- ✅ Shopping cart management
-- ✅ Secure checkout with mock payment
-- ✅ Order history and tracking
-- ✅ User profile management
-- ✅ Email order confirmations
-
-### Admin Features
-- ✅ Dashboard with sales analytics
-- ✅ Book inventory management (CRUD)
-- ✅ Order management and status updates
-- ✅ User account management
-- ✅ Category management
-- ✅ Admin profile settings
-
-### Technical Features
-- ✅ Secure authentication (bcrypt password hashing)
-- ✅ CSRF protection
-- ✅ Session management
-- ✅ Input validation and sanitization
-- ✅ Responsive design
-- ✅ RESTful API endpoints
-- ✅ Transaction-safe database operations
-- ✅ Email notifications via SendGrid
-
----
-
-## 🧪 Testing
-
-### Test Accounts
-
-The seed data includes test accounts:
-
-**Admin:**
-- Email: `admin@bookstore.com`
-- Password: `admin123`
-
-**User:**
-- Email: `user@bookstore.com`
-- Password: `user123`
-
-### Test Cards (Mock Payment)
-
-Use these test card numbers in checkout:
-- Success: `4242424242424242`
-- Decline: `4000000000000002`
-
----
-
-## 📝 Development Guidelines
-
-### Code Style
-- Follow PSR-12 coding standards for PHP
-- Use meaningful variable and function names
-- Comment complex logic
-- Keep functions small and focused
-
-### Security Best Practices
-- Never commit `.env` file
-- Always use prepared statements for database queries
-- Validate and sanitize all user inputs
-- Use CSRF tokens for forms
-- Hash passwords with bcrypt
-
-### Git Workflow
-```bash
-# Create feature branch
-git checkout -b feature/your-feature-name
-
-# Make changes and commit
-git add .
-git commit -m "Add: your feature description"
-
-# Push and create pull request
-git push origin feature/your-feature-name
+```
+src/app/(auth)/    sign in, register, terms, privacy, contact
+src/app/(shop)/    catalog, book page, cart, checkout, orders, profile (signed-in customers)
+src/app/admin/     dashboard, books, orders, accounts, profile (admins only)
+src/server/        Server Actions and database queries
+src/lib/           money, payment, sessions, validation, email (pure and tested)
+src/db/            Drizzle schema, client, seed
+drizzle/           SQL migrations
+src/styles/        user.css, auth.css, admin.css carried over from the PHP store
 ```
 
----
+## Notes
 
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Database Connection Failed**
-- Check `.env` database credentials
-- Ensure MySQL service is running
-- Verify database exists
-
-**Login Not Working**
-- Clear browser cookies/cache
-- Check password hashes in database
-- Verify session configuration
-
-**Email Not Sending**
-- Check SendGrid API key is valid
-- Verify sender email is verified in SendGrid
-- Check Render logs for errors
-
-**Cart/Orders Not Working**
-- Check JavaScript console for errors
-- Verify API endpoints are accessible
-- Check database foreign key constraints
-
----
-
-## 📚 Additional Documentation
-
-- [Deployment Guide](docs/DEPLOYMENT.md) - Detailed deployment instructions
-- [SendGrid Setup](docs/SENDGRID_SETUP.md) - Email configuration guide
-- [Database Schema](database/README.md) - Database structure documentation
-- [API Reference](docs/API.md) - API endpoints documentation
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
----
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
----
-
-## 👥 Team
-
-- **Developer**: Yuan05
-- **Project**: Online Bookstore Management System
-- **Year**: 2026
-
----
-
-## 🆘 Support
-
-For issues or questions:
-- Create an issue on GitHub
-- Contact: nightowlonlinebookstoresmtp@gmail.com
-
----
-
-**Happy Coding! 📚✨**
+The book covers are links to images on other sites, as in the original data. A dead link shows a plain "No Image" tile
+instead of a broken picture. Payments are simulated and the store is a demo.

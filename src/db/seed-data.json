@@ -1,0 +1,566 @@
+{
+ "categories": [
+  {
+   "id": 1,
+   "name": "Fiction",
+   "slug": "fiction",
+   "description": "Fictional novels and stories"
+  },
+  {
+   "id": 2,
+   "name": "Non-Fiction",
+   "slug": "non-fiction",
+   "description": "Non-fictional books and biographies"
+  },
+  {
+   "id": 3,
+   "name": "Science",
+   "slug": "science",
+   "description": "Scientific books and research"
+  },
+  {
+   "id": 4,
+   "name": "Technology",
+   "slug": "technology",
+   "description": "Technology and computer science books"
+  },
+  {
+   "id": 5,
+   "name": "History",
+   "slug": "history",
+   "description": "Historical books and references"
+  },
+  {
+   "id": 6,
+   "name": "Business",
+   "slug": "business",
+   "description": "Business and economics books"
+  },
+  {
+   "id": 7,
+   "name": "Self-Help",
+   "slug": "self-help",
+   "description": "Self-improvement and motivational books"
+  },
+  {
+   "id": 8,
+   "name": "Children",
+   "slug": "children",
+   "description": "Children and young adult books"
+  },
+  {
+   "id": 9,
+   "name": "Mystery",
+   "slug": "mystery",
+   "description": "Mystery and thriller novels"
+  },
+  {
+   "id": 10,
+   "name": "Romance",
+   "slug": "romance",
+   "description": "Romance novels"
+  }
+ ],
+ "books": [
+  {
+   "isbn": "9780515123443",
+   "title": "Killing Floor",
+   "author": "Lee Child",
+   "priceCents": 999,
+   "description": "Drifter Jack Reacher is arrested for murder in Margrave, Georgia, less than an hour after arriving. He must navigate a town where he stands no chance of convincing anyone of his innocence to find the real killer.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1399313258i/78129.jpg",
+   "categoryId": 9,
+   "stock": 45
+  },
+  {
+   "isbn": "9780060740226",
+   "title": "Shakespeare: The World as Stage",
+   "author": "Bill Bryson",
+   "priceCents": 1495,
+   "description": "Bill Bryson brings his curiosity and wit to the life of William Shakespeare, offering a refreshing take on the elusive literary master. This biography explores the man behind the plays with the same freedom of spirit found in Bryson's travelogues.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1434075816i/135611.jpg",
+   "categoryId": 5,
+   "stock": 30
+  },
+  {
+   "isbn": "9781571782522",
+   "title": "Behind the Bell",
+   "author": "Dustin Diamond",
+   "priceCents": 1699,
+   "description": "Dustin Diamond, known as Screech, reveals the dark, behind-the-scenes story of the Saved by the Bell cast's extreme lifestyle. He shares his personal struggles with typecasting and his attempts to reinvent himself after childhood stardom.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1349057755i/6684320.jpg",
+   "categoryId": 2,
+   "stock": 24
+  },
+  {
+   "isbn": "9781908476693",
+   "title": "Victory or Violence - The Story of the AWB of South Africa",
+   "author": "Arthur Kemp",
+   "priceCents": 1950,
+   "description": "This book details the history of the Afrikaner Weerstandsbeweging (AWB) and its leader Eugene Terre'Blanche during the end of Apartheid. It covers the organization's campaign of violence and bombing in a largely eyewitness account.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347633268i/3661838.jpg",
+   "categoryId": 5,
+   "stock": 19
+  },
+  {
+   "isbn": "9781933929690",
+   "title": "Mother Puncher",
+   "author": "Gina Ranalli",
+   "priceCents": 1195,
+   "description": "In an overpopulated world where procreation is discouraged, Ed Means works for the government as a licensed \"Mother Puncher.\" Though he doesn't relish the job, he serves his country by enforcing its strict population control methods.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1348980396i/3928180.jpg",
+   "categoryId": 1,
+   "stock": 15
+  },
+  {
+   "isbn": "9780132126953",
+   "title": "Computer Networks",
+   "author": "Andrew S. Tanenbaum",
+   "priceCents": 6499,
+   "description": "This classic textbook explains the inner workings of computer networks, from physical hardware to popular applications. It covers modern technologies like wireless broadband, Bluetooth, and quantum cryptography using real-world examples.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347462821i/166190.jpg",
+   "categoryId": 4,
+   "stock": 34
+  },
+  {
+   "isbn": "9780826412768",
+   "title": "Pedagogy of the Oppressed",
+   "author": "Paulo Freire",
+   "priceCents": 1895,
+   "description": "Paulo Freire's seminal work outlines a methodology to empower the impoverished and illiterate through education. This anniversary edition includes an introduction on the book's lasting impact on educators and social justice movements.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1388180018i/72657.jpg",
+   "categoryId": 2,
+   "stock": 40
+  },
+  {
+   "isbn": "9780743243773",
+   "title": "Teacher Man",
+   "author": "Frank McCourt",
+   "priceCents": 1500,
+   "description": "Frank McCourt reflects on his thirty-year teaching career in New York City high schools, which shaped his second act as a writer. He recounts the trials and triumphs of engaging unruly adolescents using unconventional methods.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1441149612i/4909.jpg",
+   "categoryId": 2,
+   "stock": 30
+  },
+  {
+   "isbn": "9780853300137",
+   "title": "Discipleship in the New Age II",
+   "author": "Alice A. Bailey",
+   "priceCents": 2200,
+   "description": "This volume continues the personal and group instructions given to aspirants on meditation, initiation, and the six stages of discipleship. It emphasizes the need for group consciousness and the \"anchoring\" of new civilization principles for the Aquarian era.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1189842181i/1890070.jpg",
+   "categoryId": 7,
+   "stock": 17
+  },
+  {
+   "isbn": "9788416327340",
+   "title": "El dÃ­a que dejÃ³ de nevar en Alaska",
+   "author": "Alice Kellen",
+   "priceCents": 1250,
+   "description": "Heather flees to a small town in Alaska to start over, where she meets Nilak, a cold and reserved restaurant owner. As she discovers the memories hiding behind his distance, both find a second chance at life and love.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1501600291i/33846385.jpg",
+   "categoryId": 10,
+   "stock": 34
+  },
+  {
+   "isbn": "9780571068876",
+   "title": "Pincher Martin",
+   "author": "William Golding",
+   "priceCents": 1399,
+   "description": "Stranded on a grotesque rock in the North Atlantic, Christopher Hadley Martin struggles to survive with only his own mind for company. He must piece together the terrifying truth of his fate in this journey into one man's psyche.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1458386642i/845721.jpg",
+   "categoryId": 1,
+   "stock": 28
+  },
+  {
+   "isbn": "9781913076130",
+   "title": "The Grim Reaper",
+   "author": "William Hanna",
+   "priceCents": 1499,
+   "description": "Freelance correspondent Mike Walker exposes the crimes of Private Military and Security Companies operating in war zones. When he attracts the attention of a British PMSC and MI5, he must fight to survive and keep reporting the truth.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1586297372i/52445828.jpg",
+   "categoryId": 9,
+   "stock": 31
+  },
+  {
+   "isbn": "9780593296376",
+   "title": "Upgrade",
+   "author": "Blake Crouch",
+   "priceCents": 2800,
+   "description": "Logan Ramsay's genome is hacked, giving him enhanced mental and physical abilities that are part of a dangerous plan for human evolution. He must use his new powers to stop a terrifying transformation that threatens humanity at large.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1643994317i/59838811.jpg",
+   "categoryId": 1,
+   "stock": 40
+  },
+  {
+   "isbn": "9780060773750",
+   "title": "A Quick Bite",
+   "author": "Lynsay Sands",
+   "priceCents": 799,
+   "description": "Vampire Lissianna Argeneau finds a handsome man tied to her bed, but her tendency to faint at the sight of blood complicates things. Dr. Gregory Hewitt must decide if he can find true love with a vampire vixen or if he is just a meal.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1410129015i/38568.jpg",
+   "categoryId": 10,
+   "stock": 47
+  },
+  {
+   "isbn": "9780007162494",
+   "title": "The Summer Garden",
+   "author": "Paullina Simons",
+   "priceCents": 1695,
+   "description": "Reunited in America after years of war, Tatiana and Alexander must build a new life with their son while facing the rising Cold War. They struggle to heal the lingering pain of the past to prevent their history from destroying their future.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1411993309i/608216.jpg",
+   "categoryId": 10,
+   "stock": 38
+  },
+  {
+   "isbn": "9780199537396",
+   "title": "The Italian",
+   "author": "Ann Radcliffe",
+   "priceCents": 1195,
+   "description": "Vincentio di Vivaldi falls for the mysterious Ellena, but his mother and a demonic monk named Schedoni plot to separate them. This Gothic romance features abduction, torture, and supernatural horror amidst sublime landscapes.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1668768515i/93136.jpg",
+   "categoryId": 1,
+   "stock": 22
+  },
+  {
+   "isbn": "9780060853983",
+   "title": "Good Omens",
+   "author": "Terry Pratchett & Neil Gaiman",
+   "priceCents": 1099,
+   "description": "As the apocalypse approaches, a somewhat fussy angel and a fast-living demon team up to prevent the Rapture because they enjoy life on Earth too much. Complicating matters, they seem to have misplaced the Antichrist.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1615552073i/12067.jpg",
+   "categoryId": 1,
+   "stock": 55
+  },
+  {
+   "isbn": "9780439598514",
+   "title": "The Haunting of Alaizabel Cray",
+   "author": "Chris Wooding",
+   "priceCents": 999,
+   "description": "Wych-hunter Thaniel and his mentor Cathaline track creatures in London's Old Quarter when they encounter the possessed Alaizabel Cray. They must discover what evil entity has turned her into a magnet for horrors before it destroys them all.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1328867929i/140260.jpg",
+   "categoryId": 1,
+   "stock": 26
+  },
+  {
+   "isbn": "9780375703768",
+   "title": "House of Leaves",
+   "author": "Mark Z. Danielewski",
+   "priceCents": 2100,
+   "description": "A family moves into a home that is impossibly bigger on the inside than the outside, leading to a terrifying exploration of a dark abyss. As they investigate, an unholy growl threatens to consume their sanity and dreams.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1403889034i/24800.jpg",
+   "categoryId": 1,
+   "stock": 30
+  },
+  {
+   "isbn": "9780763653309",
+   "title": "Finnikin of the Rock",
+   "author": "Melina Marchetta",
+   "priceCents": 1299,
+   "description": "Finnikin is summoned by a young woman named Evanjalin who claims the heir to the cursed kingdom of Lumatere is still alive. As they journey to reunite their people, Finnikin must test his faith in Evanjalin and the truth she hides.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1346007613i/4932435.jpg",
+   "categoryId": 1,
+   "stock": 41
+  },
+  {
+   "isbn": "9780062654199",
+   "title": "The Alice Network",
+   "author": "Kate Quinn",
+   "priceCents": 1699,
+   "description": "In 1947, a pregnant American socialite searching for her cousin teams up with a former WWI spy haunted by the betrayal of her network. Together, they launch a mission to uncover the truth about the \"Alice Network\" and what happened in occupied France.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1492238040i/32051912.jpg",
+   "categoryId": 1,
+   "stock": 48
+  },
+  {
+   "isbn": "9781912555629",
+   "title": "Tooth for Tooth",
+   "author": "J.K. Franko",
+   "priceCents": 1350,
+   "description": "Susie and Roy thought they committed the perfect murder, but a loose end threatens to destroy their flawless crime. As enemies multiply and the hunters become the hunted, their world begins to crumble.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1583417175i/52117056.jpg",
+   "categoryId": 9,
+   "stock": 34
+  },
+  {
+   "isbn": "9780802808684",
+   "title": "God in the Dock",
+   "author": "C.S. Lewis",
+   "priceCents": 1499,
+   "description": "This collection of essays by C.S. Lewis covers topics ranging from \"Myth Become Fact\" to \"The Grand Miracle.\" It offers theological insights and arguments on Christianity, ethics, and the modern world.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1437542039i/22051585.jpg",
+   "categoryId": 2,
+   "stock": 35
+  },
+  {
+   "isbn": "9781609809627",
+   "title": "I Who Have Never Known Men",
+   "author": "Jacqueline Harpman",
+   "priceCents": 1695,
+   "description": "A young woman raised in an underground cage with thirty-nine others is suddenly freed into a ravaged, desolate world. Having never known men or her own history, she must reinvent herself while facing the terrifying challenge of freedom.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1636235968i/11996.jpg",
+   "categoryId": 1,
+   "stock": 24
+  },
+  {
+   "isbn": "9780312577995",
+   "title": "Foretold",
+   "author": "Jana Oliver",
+   "priceCents": 1099,
+   "description": "Riley and Beck face a final battle for humanity as a dark secret in Beck's hometown threatens to drive them apart. Meanwhile, a brutal war with the prince of Hell looms, and they must defeat their old enemy or lose everything.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1333737125i/13487029.jpg",
+   "categoryId": 1,
+   "stock": 29
+  },
+  {
+   "isbn": "9781444951387",
+   "title": "Heartstopper: Volume 1",
+   "author": "Alice Oseman",
+   "priceCents": 1499,
+   "description": "Charlie and Nick meet at a British all-boys grammar school and quickly become friends, though Charlie wonders if there could be something more. This graphic novel explores their blooming relationship as they navigate school and young love.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1652212196i/58027863.jpg",
+   "categoryId": 10,
+   "stock": 60
+  },
+  {
+   "isbn": "9780445003668",
+   "title": "Joanne, The Unpredictable",
+   "author": "Katheryn Kimbrough",
+   "priceCents": 650,
+   "description": "Joanne arrives at Merrihew Manor and uses her beauty to manipulate the men around her, treating life like a romance. However, she soon discovers a satanic force ruling the estate that her guile cannot deceive.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1341850363i/11076322.jpg",
+   "categoryId": 10,
+   "stock": 17
+  },
+  {
+   "isbn": "9780195663365",
+   "title": "Godaan",
+   "author": "Munshi Premchand",
+   "priceCents": 1295,
+   "description": "In this classic Hindi novel, a poor farmer named Hori struggles to own a cow, a symbol of wealth and salvation. The story serves as a moving document of peasant life and social conflict in pre-independence India.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1205467570i/694226.jpg",
+   "categoryId": 1,
+   "stock": 27
+  },
+  {
+   "isbn": "9780452267459",
+   "title": "Baghdad without a Map",
+   "author": "Tony Horwitz",
+   "priceCents": 1600,
+   "description": "Journalist Tony Horwitz travels through the Middle East, offering a witty and insightful look at the region beyond the headlines. From Yemeni wilds to Saddam's Iraq, he recounts misadventures where the ancient and modern collide.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1168030064i/29446.jpg",
+   "categoryId": 2,
+   "stock": 30
+  },
+  {
+   "isbn": "9780140442354",
+   "title": "Either/Or: A Fragment of Life",
+   "author": "SÃ¸ren Kierkegaard",
+   "priceCents": 1800,
+   "description": "Kierkegaard explores the conflict between the aesthetic and ethical ways of life through two distinct voices. This philosophical masterpiece contemplates subjects like boredom, seduction, and the search for a meaningful existence.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1393892756i/24970.jpg",
+   "categoryId": 2,
+   "stock": 25
+  },
+  {
+   "isbn": "9780156605175",
+   "title": "The Misanthrope",
+   "author": "MoliÃ¨re",
+   "priceCents": 1095,
+   "description": "MoliÃ¨re's comedy satirizes the hypocrisies of French aristocratic society through the character of Alceste, who criticizes others' faults while ignoring his own. The play focuses on character nuances and the universal nature of misanthropy.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1416873266i/752994.jpg",
+   "categoryId": 1,
+   "stock": 33
+  },
+  {
+   "isbn": "9780786868711",
+   "title": "The Five People You Meet in Heaven",
+   "author": "Mitch Albom",
+   "priceCents": 1599,
+   "description": "After dying in a tragic accident, Eddie awakes in the afterlife to find that heaven is a place where five people explain his life to him. These encounters reveal the unexpected connections and meaning behind his seemingly uninspired existence.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1388200541i/3431.jpg",
+   "categoryId": 1,
+   "stock": 52
+  },
+  {
+   "isbn": "9780451531063",
+   "title": "Main Street",
+   "author": "Sinclair Lewis",
+   "priceCents": 995,
+   "description": "This novel tells the story of an idealistic young woman who attempts to reform her small town, only to face suffocation and spiritual discomfort. It is a critical look at American small-town life and the struggle for intellectual freedom.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1308953459i/11376.jpg",
+   "categoryId": 1,
+   "stock": 28
+  },
+  {
+   "isbn": "9780020446507",
+   "title": "Z for Zachariah",
+   "author": "Robert C. O'Brien",
+   "priceCents": 899,
+   "description": "Sixteen-year-old Ann Burden believes she is the last survivor of a nuclear war until a stranger arrives in her valley. She must decide if this man is a companion to be trusted or a threat worse than solitude.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1420324231i/69477.jpg",
+   "categoryId": 1,
+   "stock": 37
+  },
+  {
+   "isbn": "9781602602331",
+   "title": "Santa's Angels",
+   "author": "Janet Kaderli",
+   "priceCents": 1299,
+   "description": "Celebrity Nick Klaus hides out as a department store Santa, where he falls for photographer Janie Langston. As the Santa suit changes his priorities, he must keep his identity secret while hoping for a chance at love.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1356111065i/4748437.jpg",
+   "categoryId": 10,
+   "stock": 43
+  },
+  {
+   "isbn": "9780553106633",
+   "title": "A Storm of Swords",
+   "author": "George R.R. Martin",
+   "priceCents": 3000,
+   "description": "The War for the Iron Throne rages as the Seven Kingdoms face revolt, blood feuds, and a savage invasion from the north. While Robb Stark defends his crown, dark forces gather beyond the Wall, threatening everyone.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1353235205i/768889.jpg",
+   "categoryId": 1,
+   "stock": 56
+  },
+  {
+   "isbn": "9781101947135",
+   "title": "Homegoing",
+   "author": "Yaa Gyasi",
+   "priceCents": 1600,
+   "description": "This novel traces the descendants of two half-sisters born in eighteenth-century Ghana: one marries an Englishman, while the other is sold into slavery. The story follows their lineages through centuries of history, from African warfare to the American jazz age.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1448108591i/27071490.jpg",
+   "categoryId": 1,
+   "stock": 46
+  },
+  {
+   "isbn": "9780553381900",
+   "title": "My Losing Season",
+   "author": "Pat Conroy",
+   "priceCents": 1700,
+   "description": "Pat Conroy recounts his senior year of basketball at The Citadel, realizing that his losing season was the most consequential of his life. He explores his relationship with his harsh father and how the trials of sport shaped him as a writer.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1333578751i/119216.jpg",
+   "categoryId": 2,
+   "stock": 29
+  },
+  {
+   "isbn": "9781523775831",
+   "title": "RoomHate",
+   "author": "Penelope Ward",
+   "priceCents": 1399,
+   "description": "A woman inherits half a summer house, only to find the other half belongs to Justin, the man who broke her heart years ago. Forced to live together, they realize their connection is still alive, blurring the line between love and hate.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1453991440i/27083865.jpg",
+   "categoryId": 10,
+   "stock": 40
+  },
+  {
+   "isbn": "9780307356222",
+   "title": "The Golden Mean",
+   "author": "Annabel Lyon",
+   "priceCents": 1595,
+   "description": "Aristotle is summoned to tutor King Philip's son, the future Alexander the Great, and struggles to instill the \"golden mean\" of balance in the young conqueror. The novel explores the relationship between the philosopher and the warrior prince in earthy, muscular prose.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1320496914i/6396579.jpg",
+   "categoryId": 1,
+   "stock": 23
+  },
+  {
+   "isbn": "9781501142970",
+   "title": "It",
+   "author": "Stephen King",
+   "priceCents": 1999,
+   "description": "In Derry, Maine, a shapeshifting entity preys on children by exploiting their deepest fears. Years later, the survivors are called back to confront the horror of their past that has returned to kill again.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1309376909i/18342.jpg",
+   "categoryId": 1,
+   "stock": 58
+  },
+  {
+   "isbn": "9780307277190",
+   "title": "Traffic",
+   "author": "Tom Vanderbilt",
+   "priceCents": 1695,
+   "description": "Tom Vanderbilt explores the physical, psychological, and technical factors that explain how traffic works and what it says about human nature. The book reveals surprising dynamics, such as why sunny days see more crashes and how road rage can be interpreted.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1320428955i/2776527.jpg",
+   "categoryId": 2,
+   "stock": 32
+  },
+  {
+   "isbn": "9780340794500",
+   "title": "The Cosmic Ordering Service",
+   "author": "Barbel Mohr",
+   "priceCents": 1199,
+   "description": "Barbel Mohr guides readers on how to fulfill their wishes by \"placing an order\" with the universe. The book teaches how to listen to one's inner voice and decide what is truly wanted to achieve a more fulfilling life.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347955270i/737825.jpg",
+   "categoryId": 7,
+   "stock": 27
+  },
+  {
+   "isbn": "9781601090560",
+   "title": "The Journey Home",
+   "author": "Radhanath Swami",
+   "priceCents": 1899,
+   "description": "Radhanath Swami shares his transformation from a young seeker in Chicago to a renowned spiritual guide in India. The memoir details his travels, apprenticeships with yogis, and the discovery of inner harmony and divine love.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1328744836i/7013431.jpg",
+   "categoryId": 2,
+   "stock": 35
+  },
+  {
+   "isbn": "9780140233907",
+   "title": "Paddy Clarke Ha Ha Ha",
+   "author": "Roddy Doyle",
+   "priceCents": 1400,
+   "description": "Set in 1960s Dublin, ten-year-old Paddy Clarke navigates the rough streets of Barrytown while his parents' marriage crumbles at home. As his family life deteriorates, the once mischievous boy becomes isolated and vulnerable.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1168077668i/30512.jpg",
+   "categoryId": 1,
+   "stock": 26
+  },
+  {
+   "isbn": "9780679722670",
+   "title": "A Pale View of Hills",
+   "author": "Kazuo Ishiguro",
+   "priceCents": 1595,
+   "description": "Etsuko, a Japanese woman living in England, relives a summer in post-war Nagasaki following her daughter's suicide. Her memories of a strange friendship with a woman named Sachiko take on a disturbing and haunting cast.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1348339374i/28920.jpg",
+   "categoryId": 1,
+   "stock": 19
+  },
+  {
+   "isbn": "9780062118462",
+   "title": "Sweet Reckoning",
+   "author": "Wendy Higgins",
+   "priceCents": 1099,
+   "description": "Anna Whitt and her Nephilim allies must rid the earth of demons while facing the ultimate evil. As the stakes rise, Anna has to decide how much she is willing to risk, including her love for Kaidan Rowe.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1381492410i/16007855.jpg",
+   "categoryId": 1,
+   "stock": 39
+  },
+  {
+   "isbn": "9780375703423",
+   "title": "Family Matters",
+   "author": "Rohinton Mistry",
+   "priceCents": 1700,
+   "description": "In Bombay, an elderly man with Parkinson's is forced to move in with his daughter's crowded family, testing their resources and compassion. The novel portrays the domestic drama and corruption of the city through the lens of one family's struggle.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1388279746i/19661.jpg",
+   "categoryId": 1,
+   "stock": 28
+  },
+  {
+   "isbn": "9781250223180",
+   "title": "What Happened To You?",
+   "author": "Bruce D. Perry",
+   "priceCents": 2899,
+   "description": "Oprah Winfrey and Dr. Bruce Perry discuss the impact of trauma and how shifting the question from \"What's wrong with you?\" to \"What happened to you?\" can lead to healing. They offer scientific insights and personal stories to help reshape our understanding of behavior.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1653552093i/53238858.jpg",
+   "categoryId": 7,
+   "stock": 50
+  },
+  {
+   "isbn": "9780307353467",
+   "title": "Guilty",
+   "author": "Ann Coulter",
+   "priceCents": 2795,
+   "description": "Ann Coulter argues that liberals victimize their opponents while claiming to be victims themselves. The book presents various cases to support her thesis that the political Left engages in bullying under the guise of compassion.",
+   "coverImage": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1320400867i/6076107.jpg",
+   "categoryId": 2,
+   "stock": 22
+  }
+ ]
+}
