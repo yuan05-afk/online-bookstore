@@ -5,6 +5,8 @@ with a mock card payment and follow their orders. Admins manage books, orders an
 
 **Live:** https://night-owl-books.vercel.app
 
+![Night Owl Books catalog](docs/screenshots/catalog.webp)
+
 The first version was plain PHP and MySQL. It has been converted to **Next.js (App Router, TypeScript)** on **Vercel**
 with **Postgres on Neon**, keeping the same screens, the same stylesheets and the same features.
 
@@ -21,6 +23,33 @@ with **Postgres on Neon**, keeping the same screens, the same stylesheets and th
 - Add, edit and delete books. A book that appears in an order cannot be deleted; set its stock to 0 instead.
 - Search and filter orders, change an order's status and add a note. Cancelling puts the books back in stock.
 - List and search accounts, view an account's orders, promote a user to admin, delete an account (its orders are kept).
+
+## A look inside
+
+**Storefront (customer)**
+
+| Screen | Preview |
+|---|---|
+| Sign in, with the demo account shown | ![Sign in](docs/screenshots/login.webp) |
+| Book page: stock, category, quantity picker | ![Book page](docs/screenshots/book.webp) |
+| Cart with live subtotal, 8.5% tax and total | ![Cart](docs/screenshots/cart.webp) |
+| Checkout: shipping details and mock card payment | ![Checkout](docs/screenshots/checkout.webp) |
+| Order history | ![Orders](docs/screenshots/orders.webp) |
+| One order: progress, items, address, payment summary | ![Order detail](docs/screenshots/order-detail.webp) |
+
+**Admin panel**
+
+| Screen | Preview |
+|---|---|
+| Dashboard: totals, last 7 days, recent orders, low stock | ![Admin dashboard](docs/screenshots/admin-dashboard.webp) |
+| Book management: search, filter, edit, delete | ![Books](docs/screenshots/admin-books.webp) |
+| Orders: search and status filter | ![Orders](docs/screenshots/admin-orders.webp) |
+| Order detail: customer, items, status and notes | ![Order detail](docs/screenshots/admin-order-detail.webp) |
+| Accounts: roles, delete, order history | ![Accounts](docs/screenshots/admin-accounts.webp) |
+
+**On a phone**
+
+<img src="docs/screenshots/catalog-mobile.webp" alt="Catalog on a phone" width="260">
 
 ## Demo accounts
 
